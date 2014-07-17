@@ -1,0 +1,19 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+
+START=41
+
+start() {
+  # Start servald
+  mount /serval
+  /serval/sbin/e2fsck -a
+  mount -a
+  export SERVALINSTANCE_PATH=/etc/serval
+  mkdir -p $SERVALINSTANCE_PATH
+  /etc/serval/runservald &
+}
+
+stop() {
+  export SERVALINSTANCE_PATH=/etc/serval
+  /serval/servald stop
+}

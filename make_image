@@ -1,3 +1,18 @@
+
+# Download and unpack OpenWRT 12.09 image builder (if required).
+if [ ! -e OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486 ]; then
+   if [ ! -e OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2 ]; then
+      wget http://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+   fi;
+   tar jxvf OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486.tar.bz2
+fi;
+
+# Build image with all the right packages, and the extra configuration files we need.
 cd OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486
-make image PROFILE=TLMR3020 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk" FILES=files
-cp bin/ar71xx/*squash*factor* .
+make image PROFILE=TLMR3020 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk" FILES=../image-files
+
+# Copy build image to here, and show the user
+cp bin/ar71xx/openwrt-ar711-generic-tl-mr3020-v1-squashfs-factory.bin .
+
+echo "Mesh Extender firmware image built:"
+ls -l openwrt-ar711-generic-tl-mr3020-v1-squashfs-factory.bin

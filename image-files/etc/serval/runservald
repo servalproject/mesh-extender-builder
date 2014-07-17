@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#
+#  Upgrade servald if an upgrade is available.
+#
+[ -e /dos/serval.up ] && /serval/upgrade /dos/serval.up >>/dos/upgrade.log
+[ -e /dos/SERVAL.UP ] && /serval/upgrade /dos/SERVAL.UP >>/dos/upgrade.log
+
+#
+# Clear out old pid file
+#
+rm /etc/serval/servald.pid
+
+#
+# run servald, and restart if it terminates for any reason
+# (it is experimental software, after all).
+#
+while [ 1 ]
+do
+/serval/servald start foreground
+done

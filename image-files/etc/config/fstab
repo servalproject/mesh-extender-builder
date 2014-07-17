@@ -1,0 +1,32 @@
+
+bal automount
+	option from_fstab 1
+	option anon_mount 1
+	
+config global autoswap
+	option from_fstab 1
+	option anon_swap 0
+	
+config mount
+	option target	/dos
+	option device	/dev/sda1
+	option fstype	msdos
+	option options	rw,sync
+	option enabled	0
+	option enabled_fsck 0
+
+config mount
+	option target	/serval
+	option device	/dev/sda2
+	option fstype	ext4
+	option options	rw,sync
+	option enabled	0
+	option enabled_fsck 1
+
+config mount
+	option target	/serval-var
+	option device	/dev/sda3
+	option fstype	ext4
+	option options	rw,sync
+	option enabled	0
+	option enabled_fsck 1
