@@ -1,0 +1,29 @@
+
+rm -fr staging
+mkdir -p staging
+cd staging
+for p in minicom_ libpcap libncurses_ terminfo_ mkdosfs_ dosfsck_ dosfslabel_ python coreutils bash procps curl_ sed_ gawk_ grep_ netcat_ chilli zlib tcpdump_
+do
+  for f in `ls -1 ../Open*/packages/${p}*`
+  do
+     echo $f
+     # some versions of tar don't realise the ./ can be ignored, so we ask for both
+     tar zxvf ${f} ./data.tar.gz data.tar.gz
+     tar zxvf data.tar.gz
+  done
+done
+
+rm data.tar.gz
+
+exit
+
+mv usr/lib lib
+mv lib/lib/* lib
+mv usr/sbin sbin
+mv usr/bin/* bin
+mv usr/share share
+mv usr/include include
+mv usr/libexec libexec
+rmdir usr/bin
+rmdir usr
+
