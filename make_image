@@ -1,0 +1,3 @@
+cd OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486
+make image PROFILE=TLMR3020 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk" FILES=files
+cp bin/ar71xx/*squash*factor* .
