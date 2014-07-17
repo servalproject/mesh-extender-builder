@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Pass the firmware file to be flashed as the first parameter.
+#
+# The second curl call will time out, but it's expected. Once the
+# script exits you can unplug the ethernet cable and proceed to the
+# next router, but KEEP each router ON POWER until the new image is
+# fully written! When flashing is done the router automatically
+# reboots (as shown by all the leds flashing once).
+
+if [ "x$1" == "x" ]; then
+  firmware=openwrt-ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin
+  ip=192.168.0.254
+else
+  firmware=openwrt-ar71xx-generic-$1-v1-squashfs-factory.bin
+  ip=192.168.0.1
+fi
+echo "Using firmware file $firmware"
+ls -l $firmware
+
+curl \
+  --user admin:admin \
+  --user-agent 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.0) Gecko/20100101 Firefox/12.0' \
+  --referer 'http://${ip}/userRpm/SoftwareUpgradeRpm.htm' \
+  --form "Filename=@$firmware" -F 'Upgrade=Upgrade' \
+  http://${ip}/incoming/Firmware.htm >/dev/null
+
+sleep 1
+
+curl \
+  --max-time 2 \
+  --user admin:admin \
+  --user-agent 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:12.0) Gecko/20100101 Firefox/12.0' \
+  --referer 'http://${ip}/incoming/Firmware.htm' \
+  http://${ip}/userRpm/FirmwareUpdateTemp.htm >/dev/null
