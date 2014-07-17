@@ -1,0 +1,57 @@
+
+up=$1
+[ `echo $up | grep / | wc -l` -eq 0 ] && up=`pwd`/$up
+echo upgrading using $up
+
+#
+# Make staging area
+#
+# Create staging directory
+cd /tmp
+mkdir -p upgrade
+chmod 700 upgrade
+chown root upgrade
+cd upgrade
+# Remove any stray files in the staging area
+rm -f servald serval.conf
+
+#
+# Extract files we need for upgrade
+#
+# Try to extract hardware compatibility file of the upgrade bundle
+# to see if this upgrade bundle is compatible with this hardware.
+platform=`. /lib/ar71xx.sh ; ar71xx_board_name`
+tar zxvf $up platform/$platform
+if [ ! -e platform/$platform ]; then
+   # This upgrade bundle doesn't support this hardware.
+   echo "Upgrade is not compatible with $platform"
+   echo "The upgrade supports the following platforms:"
+   tar ztvf $up platform/ | grep -v "/$" | cut -f3 -d/
+   exit 1
+fi
+# Extract servald binary and config files from upgrade archive
+tar zxvf $up servald
+tar zxvf $up serval.conf
+
+#
+# Do actual upgrade steps: servald
+#
+# Move old binary out
+mv /serval/servald /serval/servald.old
+# Move new binary in
+mv /etc/serval/serval.conf /serval/serval.conf.old
+mv servald /serval/servald
+# Move new config file into place
+mv serval.conf /etc/serval/serval.conf
+# Stop old binary and start new binary
+/serval/servald.old stop
+/serval/servald start
+
+#
+# Do actual upgrade steps: OpenWRT image
+#
+model=`/lib/ar71xx.sh ar71xx_board_name`
+sysupgrade -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin
+
+# delete upgrade file when successfully applied
+rm $up
