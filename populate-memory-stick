@@ -1,0 +1,55 @@
+#!/bin/bash
+if [[ "$1" == "" ]]; then
+  echo "usage: partition-memory-stick <device>"
+  echo "       eg partition-memory-stick sdb"
+  echo "WARNING: This script proceeds without asking any questions."
+  echo "         If you use it on the wrong disk you will trash the partition table"
+  echo "         and probably lose all your data."
+  exit
+fi
+device=$1
+
+# unmount build partition if it is currently mounted
+umount /tmp/mesh-extender-build 2>&1 >/dev/null
+
+# Do check if the disk is mounted anywhere
+mounts=`mount | grep /dev/$device | wc -l`
+if [[ $mounts != 0 ]]; then
+  echo "That disk is mounted.  Try another."
+  exit
+fi
+
+if [ ! -e /dev/$device ]; then
+  echo "/dev/$device doesn't exist."
+  exit
+fi
+
+#mkfs.vfat /dev/${device}1
+#mkfs.ext4 /dev/${device}2
+#mkfs.ext4 /dev/${device}3
+
+mkdir -p /tmp/mesh-extender-build
+mount /dev/${device}2 /tmp/mesh-extender-build
+if [[ "$?" != 0 ]]; then
+  echo "Failed to mount /dev/${device}2 at /tmp/mesh-extender-build"
+  exit
+fi
+
+echo "Preparing to copy data for /serval partition"
+( cd staging ; cp -pr . /tmp/mesh-extender-build )
+umount /tmp/mesh-extender-build
+
+echo "Creating NOROOT file in /dos to secure first boot"
+mount /dev/${device}1 /tmp/mesh-extender-build
+if [[ "$?" != 0 ]]; then
+  echo "Failed to mount /dev/${device}1 at /tmp/mesh-extender-build"
+  exit
+fi
+echo "Remove this file to enable SSH login to the mesh extender as root:root." >/tmp/mesh-extender-build/noroot
+echo "This file is recreated on each reboot, so is effective for one boot only." >>/tmp/mesh-extender-build/noroot
+umount /tmp/mesh-extender-build
+
+echo
+echo
+echo
+echo "All done.  USB memory stick now ready for use in a mesh extender."
