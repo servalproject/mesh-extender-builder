@@ -15,8 +15,6 @@ done
 
 rm data.tar.gz
 
-exit
-
 mv usr/lib lib
 mv lib/lib/* lib
 mv usr/sbin sbin
@@ -27,3 +25,12 @@ mv usr/libexec libexec
 rmdir usr/bin
 rmdir usr
 
+# Now add python packages for serial and expect for talking to the radio.
+mkdir -p lib/python2.7/site-packages
+cd lib/python2.7/site-packages
+pwd
+tar zxvf ../../../../pypackages.tgz
+cd ../../../..
+
+# Leave staging directory
+cd ..
