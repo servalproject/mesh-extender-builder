@@ -32,5 +32,22 @@ pwd
 tar zxvf ../../../../pypackages.tgz
 cd ../../../..
 
+# Put servald binary into staging directory
+cp ../servald/servald servald
+
+# Make tgz of staged /serval partition
+mkdir -p ../upgrade
+tar zcvf ../upgrade/serval.tgz .
+
 # Leave staging directory
+cd ..
+
+# Build upgrade file
+cd upgrade
+cp ../servald/servald servald
+cp ../servald/serval.conf serval.conf
+mkdir -p platform
+touch platform/tl-mr3020
+cp ../openwrt-ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin
+tar zcvf ../upgrade.tgz .
 cd ..
