@@ -49,5 +49,5 @@ cp ../servald/serval.conf serval.conf
 mkdir -p platform
 touch platform/tl-mr3020
 cp ../openwrt-ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin
-tar zcvf ../upgrade.tgz .
+tar zcvf ../serval.up .
 cd ..
