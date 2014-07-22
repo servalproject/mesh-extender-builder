@@ -1,4 +1,8 @@
 
+# TODO: Include version number in upgrade bundle
+# TODO: Make upgrade script untar upgrade bundle contents to replace /serval contents
+
+
 rm -fr staging
 mkdir -p staging
 cd staging
