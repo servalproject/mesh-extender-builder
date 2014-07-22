@@ -15,7 +15,7 @@ if [ $BUTTON = wps ]; then
        if [ -e /dos/serval.up ]; then
           /serval/upgrade /dos/serval.up
        else
-          if [ -e /dos/SERVAL.up ]; then 
+          if [ -e /dos/SERVAL.UP ]; then 
             /serval/upgrade /dos/SERVAL.UP
           else
             # see if there is an updated version of servald from rhizome
