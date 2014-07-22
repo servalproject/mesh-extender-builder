@@ -1,3 +1,3 @@
-/dev/sda1	/dos	msdos	rw,sync	0	0
+/dev/sda1	/dos	vfat	rw,sync	0	0
 /dev/sda2	/serval	ext4	rw,sync	0	0
 /dev/sda3	/serval-var	ext4	rw,sync	0	0
