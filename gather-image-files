@@ -34,7 +34,7 @@ mkdir -p lib/python2.7/site-packages
 cd lib/python2.7/site-packages
 pwd
 tar zxvf ../../../../pypackages.tgz
-cd ../../../..
+cd ../../..
 
 # Put servald binary into staging directory
 cp ../servald/servald servald
