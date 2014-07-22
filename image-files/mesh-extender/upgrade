@@ -34,6 +34,18 @@ tar zxvf $up servald
 tar zxvf $up serval.conf
 
 #
+#  Complete /serval file system image
+#
+rm serval.tgz
+tar zxvf $up serval.tgz
+if [ -e serval.tgz ]; then
+   # Clear out old /serval partition contents
+   rm -fr /serval
+   # Extract tarball into /serval
+   tar zxf serval.tgz -C /serval
+fi;
+
+#
 # Do actual upgrade steps: servald
 #
 # Move old binary out
