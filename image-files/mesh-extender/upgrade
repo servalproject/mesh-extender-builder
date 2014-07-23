@@ -7,7 +7,8 @@ echo upgrading using $up
 # Make staging area
 #
 # Create staging directory
-cd /tmp
+mkdir -p /serval-var/tmp
+cd /serval-var/tmp
 mkdir -p upgrade
 chmod 700 upgrade
 chown root upgrade
@@ -62,8 +63,13 @@ mv serval.conf /etc/serval/serval.conf
 #
 # Do actual upgrade steps: OpenWRT image
 #
-model=`/lib/ar71xx.sh ar71xx_board_name`
-sysupgrade -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin
+tar zxvf $up openwrt-ar71xx-generic-${platform}-v1-squashfs-factory.bin
+if [ -e openwrt-ar71xx-generic-${platform}-v1-squashfs-factory.bin ]; then
+  sysupgrade -v openwrt-ar71xx-generic-${platform}-v1-squashfs-factory.bin
+fi;
+
+# Clean up after ourselves
+rm *
 
 # delete upgrade file when successfully applied
 rm $up
