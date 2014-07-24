@@ -7,6 +7,7 @@ echo upgrading using $up
 # Make staging area
 #
 # Create staging directory
+rm -fr /serval-var/tmp
 mkdir -p /serval-var/tmp
 cd /serval-var/tmp
 mkdir -p upgrade
