@@ -1,0 +1,21 @@
+
+#
+# Flash RFD900 radio.
+#
+# We don't know what baudrate it will be set to, so we try a few.
+# We also try to flash it a few times in a row, just to make sure.
+# This process would be better if it enquired of the current firmware
+# on the radio and tried to flash it only if the firmware version is
+# different.
+#
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
+
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
+
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
