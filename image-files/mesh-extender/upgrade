@@ -17,6 +17,14 @@ cd upgrade
 # Remove any stray files in the staging area
 rm -f servald serval.conf
 
+# First see if the upgrade package contains a script to be run
+# in place of this generic upgrade script.
+rm autorun.sh
+tar zxvf $up autorun.sh
+if [ -e autorun.sh ]; then
+   exec autorun.sh $up
+fi
+
 #
 # Extract files we need for upgrade
 #
