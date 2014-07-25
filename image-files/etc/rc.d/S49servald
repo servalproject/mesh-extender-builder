@@ -4,6 +4,10 @@
 START=41
 
 start() {
+  # Clear out old inittab incase it tries to include ttyATH0
+  # atleast that way a reboot will get things working.
+  rm /overlay/etc/inittab
+
   # Start servald
   mount /serval
   /serval/sbin/e2fsck -a
