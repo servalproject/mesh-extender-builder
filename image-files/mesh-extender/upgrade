@@ -22,7 +22,7 @@ rm -f servald serval.conf
 rm autorun.sh
 tar zxvf $up autorun.sh
 if [ -e autorun.sh ]; then
-   exec autorun.sh $up
+   exec ./autorun.sh $up
 fi
 
 #
