@@ -1,7 +1,7 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2006 OpenWrt.org
 
-START=41
+START=49
 
 start() {
   # Clear out old inittab incase it tries to include ttyATH0

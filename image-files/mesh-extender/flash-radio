@@ -1,4 +1,4 @@
-
+#!/bin/sh
 #
 # Flash RFD900 radio.
 #
@@ -8,14 +8,31 @@
 # on the radio and tried to flash it only if the firmware version is
 # different.
 #
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx
 
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx
+flash_radio () {
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 57600 radio~rfd900a.ihx && return 0;
 
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
-/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 115200 radio~rfd900a.ihx && return 0;
+
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx && return 0;
+/mesh-extender/uploader.py --resetparams --port /dev/ttyATH0 --baudrate 230400 radio~rfd900a.ihx && return 0;
+
+return 1;
+}
+
+# Mount /serval so that we have python as required for uploader.py
+mount /serval
+e2fsck -a
+mount -a
+
+# Try to flash radio.  If it works, then don't try any more.
+if flash_radio; then
+  # RAdio successfully flashed
+  rm /etc/rc.d/S48flashradio
+
+fi

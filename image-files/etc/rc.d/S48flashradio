@@ -1,0 +1,10 @@
+#!/bin/sh /etc/rc.common
+
+START=48
+
+start() {
+	/mesh-extender/flash-radio
+}
+
+stop() {
+}
