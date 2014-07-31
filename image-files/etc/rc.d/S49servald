@@ -6,7 +6,10 @@ START=49
 start() {
   # Clear out old inittab incase it tries to include ttyATH0
   # atleast that way a reboot will get things working.
-  rm /overlay/etc/inittab
+  if [ -e /overlay/etc/inittab ]; then
+    rm /overlay/etc/inittab
+    reboot
+  fi
 
   # Start servald
   mount /serval
@@ -14,7 +17,11 @@ start() {
   mount -a
   export SERVALINSTANCE_PATH=/etc/serval
   mkdir -p $SERVALINSTANCE_PATH
-  /etc/serval/runservald &
+
+  # But don't start servald until we have flashed the radio
+  if [ ! -e /etc/rc.d/S48flashradio ]; then
+    /etc/serval/runservald &
+  fi
 }
 
 stop() {
