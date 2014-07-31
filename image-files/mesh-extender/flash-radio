@@ -27,7 +27,8 @@ return 1;
 
 # Mount /serval so that we have python as required for uploader.py
 mount /serval
-e2fsck -a
+e2fsck /dev/sda2
+e2fsck /dev/sda3
 mount -a
 
 # Try to flash radio.  If it works, then don't try any more.
