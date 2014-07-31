@@ -37,7 +37,7 @@ tar zxvf ../../../../pypackages.tgz
 cd ../../..
 
 # extract web pages
-cp -pr ../../../../www www
+cp -pr ../www www
 
 # Put servald binary into staging directory
 cp ../servald/servald servald
