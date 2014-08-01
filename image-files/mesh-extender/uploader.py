@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/serval/bin/python
 #
 # Serial firmware uploader for the SiK bootloader
 #
