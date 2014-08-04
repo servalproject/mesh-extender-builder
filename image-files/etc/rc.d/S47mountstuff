@@ -1,0 +1,13 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+
+START=47
+
+start() {
+  e2fsck -a
+  dosfsck /dev/sda1
+  mount -a
+}
+
+stop() {
+}

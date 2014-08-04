@@ -12,9 +12,6 @@ start() {
   fi
 
   # Start servald
-  e2fsck -a
-  dosfsck /dev/sda1
-  mount -a
   export SERVALINSTANCE_PATH=/etc/serval
   mkdir -p $SERVALINSTANCE_PATH
 
