@@ -24,9 +24,9 @@ if [ ! -e /dev/$device ]; then
   exit
 fi
 
-#mkfs.vfat /dev/${device}1
-#mkfs.ext4 /dev/${device}2
-#mkfs.ext4 /dev/${device}3
+mkfs.vfat /dev/${device}1
+mkfs.ext4 /dev/${device}2
+mkfs.ext4 /dev/${device}3
 
 mkdir -p /tmp/mesh-extender-build
 mount /dev/${device}2 /tmp/mesh-extender-build
