@@ -15,10 +15,7 @@ start() {
   export SERVALINSTANCE_PATH=/etc/serval
   mkdir -p $SERVALINSTANCE_PATH
 
-  # But don't start servald until we have flashed the radio
-  if [ ! -e /etc/rc.d/S48flashradio ]; then
-    /etc/serval/runservald &
-  fi
+  /etc/serval/runservald &
 }
 
 stop() {

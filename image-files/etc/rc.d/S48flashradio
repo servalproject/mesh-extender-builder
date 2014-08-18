@@ -4,7 +4,7 @@ START=48
 
 start() {
         cd /mesh-extender
-	/mesh-extender/flash-radio
+	/mesh-extender/flash900 /mesh-extender/radio~rfd900a.ihx /dev/ttyATH0
 }
 
 stop() {
