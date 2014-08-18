@@ -6,7 +6,7 @@
 rm -fr staging
 mkdir -p staging
 cd staging
-for p in minicom_ libpcap libncurses_ terminfo_ mkdosfs_ dosfsck_ dosfslabel_ python coreutils bash procps curl_ sed_ gawk_ grep_ netcat_ chilli zlib tcpdump_
+for p in minicom_ libpcap libncurses_ terminfo_ mkdosfs_ dosfsck_ dosfslabel_ coreutils bash procps curl_ sed_ gawk_ grep_ netcat_ chilli zlib tcpdump_
 do
   for f in `ls -1 ../Open*/packages/${p}*`
   do
@@ -28,13 +28,6 @@ mv usr/include include
 mv usr/libexec libexec
 rmdir usr/bin
 rmdir usr
-
-# Now add python packages for serial and expect for talking to the radio.
-mkdir -p lib/python2.7/site-packages
-cd lib/python2.7/site-packages
-pwd
-tar zxvf ../../../../pypackages.tgz
-cd ../../..
 
 # extract web pages
 cp -pr ../www www
