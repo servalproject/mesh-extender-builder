@@ -11,6 +11,9 @@ start() {
     reboot
   fi
 
+  # Flash radio if required
+  /mesh-extender/flash900 /mesh-extender/radio~rfd900a.ihx /dev/ttyATH0 >/dev/null 2>&1
+
   # Start servald
   export SERVALINSTANCE_PATH=/etc/serval
   mkdir -p $SERVALINSTANCE_PATH
