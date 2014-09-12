@@ -5,9 +5,27 @@
 # Get latest servalmesh.apk
 wget -O www/software/android/servalmesh.apk http://developer.servalproject.org/files/beta/Serval_Mesh-0.92-RC4.apk
 
+# Clone relevant repos and build tarballs
+rm -fr source
+mkdir -p source
+cd source
+echo "Making source tarballs"
+mkdir -p ../www/software/source/files
+for p in mesh-extender-builder serval-dna batphone smac flash-rfd900 openwrt-packages app_servaldna serval-docs 
+do
+   echo git clone git@github.com:servalproject/${p}.git
+   git clone git@github.com:servalproject/${p}.git
+   echo tar zcf ../www/software/source/files/${p}.tgz
+   tar zcf ../www/software/source/files/${p}.tgz ${p}
+   rm -fr ${p}
+done
+cd ..
+
+
 rm -fr staging
 mkdir -p staging
 cd staging
+
 for p in minicom_ libpcap libncurses_ terminfo_ mkdosfs_ dosfsck_ dosfslabel_ coreutils bash procps curl_ sed_ gawk_ grep_ netcat_ chilli zlib tcpdump_
 do
   for f in `ls -1 ../Open*/packages/${p}*`
