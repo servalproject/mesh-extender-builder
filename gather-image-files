@@ -2,6 +2,8 @@
 # TODO: Include version number in upgrade bundle
 # TODO: Make upgrade script untar upgrade bundle contents to replace /serval contents
 
+# Get latest servalmesh.apk
+wget -O www/software/android/servalmesh.apk http://developer.servalproject.org/files/beta/Serval_Mesh-0.92-RC4.apk
 
 rm -fr staging
 mkdir -p staging
