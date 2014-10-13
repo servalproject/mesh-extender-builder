@@ -1,0 +1,2 @@
+#!/bin/sh
+sed 's|MACADDRESS_HERE|'`cat /sys/class/ieee80211/phy0/macaddress`'|' < /etc/config/wireless.template > /etc/config/wireless
