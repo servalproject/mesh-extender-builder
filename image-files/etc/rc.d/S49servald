@@ -17,6 +17,8 @@ start() {
   # Start servald
   export SERVALINSTANCE_PATH=/etc/serval
   mkdir -p $SERVALINSTANCE_PATH
+  mkdir -p /var/run/serval
+  mkdir -p /serval-var/log
 
   mount -a
 
