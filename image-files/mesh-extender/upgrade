@@ -60,11 +60,12 @@ fi;
 #
 # Move old binary out
 mv /serval/servald /serval/servald.old
+# Move old config file out
+mv /serval-var/serval.conf /serval/serval.conf.old
 # Move new binary in
-mv /etc/serval/serval.conf /serval/serval.conf.old
 mv servald /serval/servald
 # Move new config file into place
-mv serval.conf /etc/serval/serval.conf
+mv serval.conf /serval-var/serval.conf
 # Stop old binary and start new binary
 /serval/servald.old stop
 /serval/servald start
