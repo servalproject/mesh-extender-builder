@@ -3,7 +3,7 @@
 # TODO: Make upgrade script untar upgrade bundle contents to replace /serval contents
 
 # Get latest servalmesh.apk
-wget -O www/software/android/servalmesh.apk http://developer.servalproject.org/files/beta/Serval_Mesh-0.92-RC4.apk
+wget -O www/software/android/servalmesh.apk http://developer.servalproject.org/files/beta/Serval_Mesh-0.92-RC5.apk
 
 # Clone relevant repos and build tarballs
 rm -fr source

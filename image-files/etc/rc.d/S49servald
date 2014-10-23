@@ -15,7 +15,7 @@ start() {
   /mesh-extender/flash900 /mesh-extender/radio~rfd900a.ihx /dev/ttyATH0 >/dev/null 2>&1
 
   # Start servald
-  export SERVALINSTANCE_PATH=/etc/serval
+  export SERVALINSTANCE_PATH=/serval-var
   mkdir -p $SERVALINSTANCE_PATH
   mkdir -p /var/run/serval
   mkdir -p /serval-var/log

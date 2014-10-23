@@ -17,5 +17,6 @@ rm /etc/serval/servald.pid
 #
 while [ 1 ]
 do
-/serval/servald start foreground
+/serval/servald start
+sleep 3
 done
