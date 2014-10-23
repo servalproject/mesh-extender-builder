@@ -26,6 +26,6 @@ start() {
 }
 
 stop() {
-  export SERVALINSTANCE_PATH=/etc/serval
+  export SERVALINSTANCE_PATH=/serval-var
   /serval/servald stop
 }
