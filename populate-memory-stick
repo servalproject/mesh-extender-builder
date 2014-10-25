@@ -10,6 +10,7 @@ fi
 device=$1
 
 # unmount build partition if it is currently mounted
+sync
 umount /tmp/mesh-extender-build 2>&1 >/dev/null
 
 # Do check if the disk is mounted anywhere
@@ -37,6 +38,7 @@ fi
 
 echo "Preparing to copy data for /serval partition"
 ( cd staging ; cp -pr . /tmp/mesh-extender-build )
+sync
 umount /tmp/mesh-extender-build
 
 echo "Creating NOROOT file in /dos to secure first boot"
@@ -47,6 +49,7 @@ if [[ "$?" != 0 ]]; then
 fi
 echo "Remove this file to enable SSH login to the mesh extender as root:root." >/tmp/mesh-extender-build/noroot
 echo "This file is recreated on each reboot, so is effective for one boot only." >>/tmp/mesh-extender-build/noroot
+sync
 umount /tmp/mesh-extender-build
 
 echo
