@@ -52,6 +52,16 @@ echo "This file is recreated on each reboot, so is effective for one boot only."
 sync
 umount /tmp/mesh-extender-build
 
+echo "Preparing to place serval.conf in /serval-var partition"
+mount /dev/${device}3 /tmp/mesh-extender-build
+if [[ "$?" != 0 ]]; then
+  echo "Failed to mount /dev/${device}3 at /tmp/mesh-extender-build"
+  exit
+fi
+cp servald/serval.conf /tmp/mesh-extender-build
+sync
+umount /tmp/mesh-extender-build
+
 echo
 echo
 echo
