@@ -19,4 +19,4 @@ endif
 
 scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin root@${ip}:/tmp
 # We use a short keep-alive interval so that ssh realises when the far end has rebooted and dropped the connection.
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( cd /tmp ; sysupgrade -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin )"
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( cd /tmp ; sysupgrade -n -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin )"
