@@ -13,21 +13,21 @@ if [ $BUTTON = wps ]; then
      echo $buttondowntime > /tmp/button_down_time
      if [ $buttondowntime -lt 5 ]; then
        if [ -e /dos/serval.up ]; then
-          /serval/upgrade /dos/serval.up
+          /mesh-extender/upgrade /dos/serval.up
        else
           if [ -e /dos/SERVAL.UP ]; then 
-            /serval/upgrade /dos/SERVAL.UP
+            /mesh-extender/upgrade /dos/SERVAL.UP
           else
             # see if there is an updated version of servald from rhizome
             /serval/servald rhizome extract file ${bundleid} /dos/serval.up
             if [ -e /dos/serval.up ]; then
-               /serval/upgrade /dos/serval.up
+               /mesh-extender/upgrade /dos/serval.up
             fi          
           fi
        fi 
      else
        # long press = factory reset
-       /serval/upgrade /serval/serval.factory
+       /mesh-extender/upgrade /serval/serval.factory
      fi
      /serval/servald stop ; /serval/servald start
   fi
