@@ -23,7 +23,7 @@ echo "Upgrading OpenWRT on the $model at $ip"
 
 if ( "x$2" != "x" ) then
    set model=$2
-endif
+end if
 
 $sshpass scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin root@${ip}:/tmp
 # We use a short keep-alive interval so that ssh realises when the far end has rebooted and dropped the connection.
