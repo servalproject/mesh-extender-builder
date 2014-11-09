@@ -8,12 +8,13 @@ else
 endif
 
 # Use sshpass if available
-if ( x`which sshpass` != x )then
+set wsp=`which sshpass`
+if ( "x$wsp" != x ) then
   set sshpass="sshpass -p root"
 else
   set sshpass=""
   echo "NOTICE: sshpass not found, you will have to type root when prompted to enter passwords below"
-end if
+endif
 
 # Try logging in with telnet and setting root password if not already done.
 libexec/telnet_set_root_pass ${ip}
@@ -23,7 +24,7 @@ echo "Upgrading OpenWRT on the $model at $ip"
 
 if ( "x$2" != "x" ) then
    set model=$2
-end if
+endif
 
 $sshpass scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin root@${ip}:/tmp
 # We use a short keep-alive interval so that ssh realises when the far end has rebooted and dropped the connection.
