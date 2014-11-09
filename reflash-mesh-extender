@@ -7,16 +7,24 @@ else
   set ip=$1
 endif
 
+# Use sshpass if available
+if ( x`which sshpass` != x )then
+  set sshpass="sshpass -p root"
+else
+  set sshpass=""
+  echo "NOTICE: sshpass not found, you will have to type root when prompted to enter passwords below"
+end if
+
 # Try logging in with telnet and setting root password if not already done.
 libexec/telnet_set_root_pass ${ip}
 
-set model=`ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( . /lib/ar71xx.sh  ; ar71xx_board_name )"`
+set model=`$sshpass ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( . /lib/ar71xx.sh  ; ar71xx_board_name )"`
 echo "Upgrading OpenWRT on the $model at $ip"
 
 if ( "x$2" != "x" ) then
    set model=$2
 endif
 
-scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin root@${ip}:/tmp
+$sshpass scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin root@${ip}:/tmp
 # We use a short keep-alive interval so that ssh realises when the far end has rebooted and dropped the connection.
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( cd /tmp ; sysupgrade -n -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin )"
+$sshpass ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -o TCPKeepAlive=yes -o ServerAliveInterval=5  root@${ip} "( cd /tmp ; sysupgrade -n -v openwrt-ar71xx-generic-${model}-v1-squashfs-factory.bin )"
