@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#
+# run lbard, and restart if it terminates for any reason
+# (it is experimental software, after all).
+#
+while [ 1 ]
+do
+/serval/lbard start
+sleep 3
+done

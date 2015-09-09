@@ -23,9 +23,11 @@ start() {
   mount -a
 
   /etc/serval/runservald &
+  /etc/serval/runlbard &
 }
 
 stop() {
   export SERVALINSTANCE_PATH=/serval-var
   /serval/servald stop
+  pkill runlbard lbard
 }
