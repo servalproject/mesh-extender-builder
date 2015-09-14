@@ -8,9 +8,11 @@ else
 endif
 
 # Use sshpass if available
-set wsp=`which sshpass`
+set wsp=`which sshpass | grep -iv "Command not found"`
 if ( "x$wsp" != x ) then
   set sshpass="sshpass -p root"
+  echo "You have sshpass -- this will improve your convenience."
+  echo "  sshpass binary is "`which sshpass`
 else
   set sshpass=""
   echo "NOTICE: sshpass not found, you will have to type root when prompted to enter passwords below"
