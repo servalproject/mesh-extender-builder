@@ -11,9 +11,6 @@ start() {
     reboot
   fi
 
-  # Flash radio if required
-  /serval/flash900 /serval/rfd900 /dev/ttyATH0 >/dos/flash900.log 2>&1 
-
   # Start servald
   export SERVALINSTANCE_PATH=/serval-var
   mkdir -p $SERVALINSTANCE_PATH
@@ -21,6 +18,9 @@ start() {
   mkdir -p /serval-var/log
 
   mount -a
+  
+  # Flash radio if required
+  /serval/flash900 /serval/rfd900 /dev/ttyATH0 >/dos/flash900.log 2>&1 
 
   /etc/serval/runservald &
   /etc/serval/runlbard &
