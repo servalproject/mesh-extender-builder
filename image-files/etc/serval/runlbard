@@ -11,5 +11,6 @@ sleep 10
 while [ 1 ]
 do
 /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald id self | tail -1` /dev/ttyATH0 
+servald stop
 sleep 3
 done
