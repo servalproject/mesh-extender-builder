@@ -32,7 +32,10 @@ do
   do
      echo $f
      # some versions of tar don't realise the ./ can be ignored, so we ask for both
+     pwd
+     echo tar zxvf ${f} ./data.tar.gz data.tar.gz
      tar zxvf ${f} ./data.tar.gz data.tar.gz
+     echo tar zxvf data.tar.gz
      tar zxvf data.tar.gz
   done
 done
