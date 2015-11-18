@@ -1,0 +1,23 @@
+#!/bin/csh -f
+
+set path=($path ~/g/serval-dna)
+
+cd instance
+setenv SERVALINSTANCE_PATH `pwd`
+cd ..
+
+servald stop
+rm servald-instance/rhizome.db
+servald start
+
+echo "My SID is "`servald id self | tail -1`
+
+servald rhizome add file --force-new `servald id self |tail -1` null-update me-ota-update.manifest "#arkaroolai2015" > bootstrap.log
+
+servald rhizome list
+
+set bundleid=`grep manifestid bootstrap.log | cut -f2 -d:`
+set bk=`grep BK bootstrap.log | cut -f2 -d:`
+echo "BID = $bundleid, BK = $bk"
+
+
