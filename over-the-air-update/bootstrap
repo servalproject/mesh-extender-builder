@@ -20,4 +20,6 @@ set bundleid=`grep manifestid bootstrap.log | cut -f2 -d:`
 set bk=`grep BK bootstrap.log | cut -f2 -d:`
 echo "BID = $bundleid, BK = $bk"
 
+# Create bundleid file for OTA update
+echo $bundleid > ../image-files/etc/serval/ota-bundleid.txt
 
