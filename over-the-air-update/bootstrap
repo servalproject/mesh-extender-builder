@@ -23,3 +23,10 @@ echo "BID = $bundleid, BK = $bk"
 # Create bundleid file for OTA update
 echo $bundleid > ../image-files/etc/serval/ota-bundleid.txt
 
+# Now create OTA update file
+
+# Start by including the files to be updated (currently just
+# the main binaries, we can add more stuff later)
+( cd ../staging/ ; tar zcvf - servald lbard  ) > files.tgz
+cat ota-shell >ota-complete
+uuencode files.tgz files.tgz
