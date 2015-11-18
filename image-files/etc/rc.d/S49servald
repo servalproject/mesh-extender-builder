@@ -24,6 +24,7 @@ start() {
 
   /etc/serval/runservald &
   /etc/serval/runlbard &
+  /etc/serval/otaupdate &
 }
 
 stop() {

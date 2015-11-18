@@ -1,0 +1,33 @@
+#!/bin/sh
+
+#
+# Watch for over-the-air updates, and execute them if available
+# 
+#
+bundleid=`cat /etc/serval/ota-bundleid.txt`
+
+# Allow 10 seconds for servald to start up
+sleep 10
+
+while [ 1 ]
+do
+
+currentversion=`cat /www/ota-update-version.html`
+rhizomeversion=`/serval/servald rhizome list | grep -i ${bundleid} | cut -f4 -d:`
+if ( "x$rhizomeversion" != "x" ) then
+  if ( $rhizomeversion > $currentversion ) then
+    # We have found a newer version
+    rm /dos/ota-update
+    /serval/servald rhizome extract file ${bundleid} /dos/ota-update
+    if ( -e /dos/ota-update ) then
+      chmod 755 /dos/ota-update 
+      /dos/ota-update && echo "$rhizomeversion" > /www/ota-update-version.html
+      ls -l /serval > /www/ota-update-result.html
+    endif  
+  endif
+endif
+
+
+
+sleep 10
+done
