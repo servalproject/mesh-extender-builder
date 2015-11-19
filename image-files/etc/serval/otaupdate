@@ -13,7 +13,7 @@ while [ 1 ]
 do
 
 currentversion=`cat /serval/www/ota-update-version.html`
-if [ -z $currentversion]; then
+if [ -z $currentversion ]; then
   currentversion=0
 fi
 echo "Bundleid = '$bundleid'"
