@@ -19,6 +19,7 @@ dropbear_start()
 	# If starting, create the file, so that removing noroot only allows
 	# ssh to be available for one boot.
 	passwd -l root # lock root
+        # /dos/yesroot causes root access to always be available
         if [ ! -e /dos/yesroot ]; then
           [ -e /dos/noroot ] && return 1
           touch /dos/noroot
@@ -26,6 +27,13 @@ dropbear_start()
           echo "This file is recreated on each reboot, so is effective for one boot only." >>/dos/noroot
         fi
         passwd -u root # unlock root if allowing dropbear
+        if [ -e /dos/yesroot ]; then
+          if [ ! -z /dos/yesroot ]; then
+            # Set root password according to contents of yesroot file
+            password=`cat /dos/yesroot | cut -c1-8`
+            ( sleep 1; echo "${password}" ; sleep 1; echo "${password}" ) | passwd root
+          fi 
+        fi
 
 	append_ports()
 	{
