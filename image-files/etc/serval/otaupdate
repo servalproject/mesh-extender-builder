@@ -12,7 +12,7 @@ sleep 10
 while [ 1 ]
 do
 
-currentversion=`cat /www/ota-update-version.html`
+currentversion=`cat /serval/www/ota-update-version.html`
 if [ -z $currentversion]; then
   currentversion=0
 fi
@@ -26,7 +26,7 @@ if [ ! -z "$rhizomeversion" ]; then
     /serval/servald rhizome extract file ${bundleid} /dos/ota-update
     if [ -e /dos/ota-update ]; then
       chmod 755 /dos/ota-update
-      /dos/ota-update && echo "$rhizomeversion" > /www/ota-update-version.html
+      /dos/ota-update && echo "$rhizomeversion" > /serval/www/ota-update-version.html
       ls -l /serval > /www/ota-update-result.html
     fi
   fi
