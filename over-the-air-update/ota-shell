@@ -16,8 +16,13 @@ tar zxvf files.tgz
 mv /serval/servald /serval/servald.ota-old
 mv servald /serval/servald
 
+mv /serval/flash900 /serval/flash900.ota-old
+mv flash900 /serval/flash900
+
 mv /serval/lbard /serval/lbard.ota-old
 mv lbard /serval/lbard
+
+mv rfd900* /serval/
 
 # stop servald and lbard to allow them to respawn with 
 # the new version
