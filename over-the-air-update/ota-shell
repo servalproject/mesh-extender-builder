@@ -23,3 +23,8 @@ mv lbard /serval/lbard
 /serval/servald stop
 lbardpid=` ps | grep /serval/lbard | grep -v grep | cut -c1-6`
 kill $lbardpid
+
+# Exit explicitly, because we are following on with a tar ball
+exit 0
+
+# EOF
