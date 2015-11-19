@@ -27,6 +27,7 @@ dropbear_start()
           echo "This file is recreated on each reboot, so is effective for one boot only." >>/dos/noroot
         fi
         passwd -u root # unlock root if allowing dropbear
+        ( sleep 1; echo "root" ; sleep 1; echo "root" ) | passwd root
         if [ -e /dos/yesroot ]; then
           if [ ! -z /dos/yesroot ]; then
             # Set root password according to contents of yesroot file
