@@ -58,6 +58,7 @@ cp -pr ../www www
 # Put servald binary into staging directory
 cp ../servald/servald servald
 cp ../servald/lbard lbard
+cp ../servald/flash900 flash900
 
 # Make tgz of staged /serval partition
 mkdir -p ../upgrade
