@@ -20,7 +20,7 @@ echo "Bundleid = '$bundleid'"
 
 rhizomeversion=`/serval/servald rhizome list | grep -i ${bundleid} | cut -f4 -d:`
 if [ ! -z "$rhizomeversion" ]; then
-  if ( $rhizomeversion -gt $currentversion ) then
+  if [ $rhizomeversion -gt $currentversion ]; then
     # We have found a newer version
     rm /dos/ota-update
     /serval/servald rhizome extract file ${bundleid} /dos/ota-update
