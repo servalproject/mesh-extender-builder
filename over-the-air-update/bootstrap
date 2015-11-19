@@ -12,7 +12,15 @@ servald start
 
 echo "My SID is "`servald id self | tail -1`
 
-servald rhizome add file --force-new `servald id self |tail -1` null-update me-ota-update.manifest "#arkaroolai2015" > bootstrap.log
+# Now create OTA update file
+
+# Start by including the files to be updated (currently just
+# the main binaries, we can add more stuff later)
+( cd ../staging/ ; tar zcvf - servald lbard  ) > files.tgz
+cat ota-shell >ota-complete
+cat files.tgz >> ota-complete
+
+servald rhizome add file --force-new `servald id self |tail -1` ota-complete me-ota-update.manifest "#arkaroolai2015" > bootstrap.log
 
 servald rhizome list
 
@@ -23,10 +31,4 @@ echo "BID = $bundleid, BK = $bk"
 # Create bundleid file for OTA update
 echo $bundleid > ../image-files/etc/serval/ota-bundleid.txt
 
-# Now create OTA update file
 
-# Start by including the files to be updated (currently just
-# the main binaries, we can add more stuff later)
-( cd ../staging/ ; tar zcvf - servald lbard  ) > files.tgz
-cat ota-shell >ota-complete
-uuencode files.tgz files.tgz

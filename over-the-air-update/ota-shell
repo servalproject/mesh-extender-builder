@@ -1,0 +1,25 @@
+#!/bin/sh
+
+cd /serval
+rm -fr ota-update
+rmdir ota-update
+mkdir ota-update
+cd ota-update
+
+# Extract tar file
+tar zxvf $0
+
+# Copy files into place
+# (move running binaries out of the way first)
+
+mv /serval/servald /serval/servald.ota-old
+mv servald /serval/servald
+
+mv /serval/lbard /serval/lbard.ota-old
+mv lbard /serval/lbard
+
+# stop servald and lbard to allow them to respawn with 
+# the new version
+/serval/servald stop
+lbardpid=` ps | grep /serval/lbard | grep -v grep | cut -c1-6`
+kill $lbardpid
