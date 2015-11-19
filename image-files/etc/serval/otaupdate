@@ -27,7 +27,11 @@ if [ ! -z "$rhizomeversion" ]; then
     if [ -e /dos/ota-update ]; then
       chmod 755 /dos/ota-update
       /dos/ota-update && echo "$rhizomeversion" > /serval/www/ota-update-version.html
-      ls -l /serval > /www/ota-update-result.html
+      # Create some nice diagnostic files so that we can work out what version of
+      # binaries we are using.
+      ls -l /serval > /serval/www/ota-update-result.html
+      servald help > /serval/www/servald.txt
+      strings /serval/lbard > /serval/www/lbard.txt 
     fi
   fi
 fi
