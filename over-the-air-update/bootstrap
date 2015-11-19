@@ -20,6 +20,12 @@ echo "My SID is "`servald id self | tail -1`
 cat ota-shell >ota-complete
 cat files.tgz >> ota-complete
 
+if ( -e me-ota-update.manifest ) then
+  rm me-ota-update.manifest
+endif
+
+servald rhizome list
+
 servald rhizome add file --force-new `servald id self |tail -1` ota-complete me-ota-update.manifest "#arkaroolai2015" 
 
 servald rhizome list
