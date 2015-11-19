@@ -6,8 +6,9 @@ rmdir ota-update
 mkdir ota-update
 cd ota-update
 
-# Extract tar file
-tar zxvf $0
+# Extract tar file from the end of this script.
+dd if=$0 of=files.tgz bs=8192 skip=1
+tar zxvf files.tgz
 
 # Copy files into place
 # (move running binaries out of the way first)

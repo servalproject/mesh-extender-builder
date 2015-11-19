@@ -17,7 +17,11 @@ echo "My SID is "`servald id self | tail -1`
 # Start by including the files to be updated (currently just
 # the main binaries, we can add more stuff later)
 ( cd ../staging/ ; tar zcvf - servald lbard  ) > files.tgz
-cat ota-shell >ota-complete
+if ( -e ota-complete ) then
+  rm ota-complete
+endif
+dd if=/dev/zero of=ota-complete bs=8192 count=1
+dd conv=notrunc seek=0 if=ota-shell of=ota-complete bs=8192 count=1
 cat files.tgz >> ota-complete
 
 if ( -e me-ota-update.manifest ) then
