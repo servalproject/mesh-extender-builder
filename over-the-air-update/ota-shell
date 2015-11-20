@@ -22,6 +22,9 @@ mv flash900 /serval/flash900
 mv /serval/lbard /serval/lbard.ota-old
 mv lbard /serval/lbard
 
+mv /etc/serval/runlbard /etc/serval/runlbard.ota-old
+mv runlbard /etc/serval/runlbard
+
 mv rfd900* /serval/
 
 # stop servald and lbard to allow them to respawn with 
