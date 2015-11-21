@@ -27,11 +27,15 @@ mv runlbard /etc/serval/runlbard
 
 mv rfd900* /serval/
 
-# stop servald and lbard to allow them to respawn with 
-# the new version
-/serval/servald stop
+# Stop runlbard so that we can start it again with our new version.
+thepid=` ps | grep runlbard | grep -v grep | cut -c1-6`
+kill $thepid
+/etc/serval/runlbard &
 lbardpid=` ps | grep /serval/lbard | grep -v grep | cut -c1-6`
 kill $lbardpid
+
+# stop servald to allow them to respawn with the new version
+/serval/servald stop
 
 # Exit explicitly, because we are following on with a tar ball
 exit 0
