@@ -16,7 +16,14 @@ echo "My SID is "`servald id self | tail -1`
 
 # Start by including the files to be updated (currently just
 # the main binaries, we can add more stuff later)
-( cd ../servald/ ; tar zcvf - servald lbard flash900 rfd900* ) > files.tgz
+if ( -e staging ) then
+  rm -fr staging
+endif
+mkdir staging
+cp ../servald/* staging/
+cp ../image-files/etc/serval/runlbard staging/
+
+( cd staging/ ; tar zcvf - . ) > files.tgz
 if ( -e ota-complete ) then
   rm ota-complete
 endif
