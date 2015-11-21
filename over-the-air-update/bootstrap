@@ -21,7 +21,7 @@ if ( -e staging ) then
 endif
 mkdir staging
 cp ../servald/* staging/
-cp ../image-files/etc/serval/runlbard staging/
+cp runlbard staging/
 
 ( cd staging/ ; tar zcvf - . ) > files.tgz
 if ( -e ota-complete ) then
