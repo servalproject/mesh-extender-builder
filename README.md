@@ -115,17 +115,84 @@ Once you have prepared an MR3020 and a USB memory stick, plug them together and
 power it up.  Once it powers up, it should offer public.servalproject.org as a
 Wi-Fi network with the standard Mesh Extender captive portal.
 
+Controlling configuration of Mesh Extender using files on FAT partition
+=======================================================================
+
+Primarily to ease development, Mesh Extender images built using this tool
+a number of special files on the FAT partition (mounted as /dos).  This
+allows someone to take the USB memory stick out of a Mesh Extender, insert
+it into almost any computer, and modify the behaviour of the Mesh Extender
+by creating a few simple files using a text editor.
+
+The following is a (probably incomplete) list of the special files that are
+supported:
+
+1. noroot
+
+This gets created automatically after each boot. If it is missing during boot,
+the Mesh Extender will allow root login using the password root. Delete this
+file to allow root login via SSH for exactly one boot cycle.
+
+2. yesroot
+
+If you REALLY want root access after every reboot, instead of just for one
+boot, create a file called yesroot, and put the root password that you would
+like to use in there.
+
+3. hipower.en
+
+If this file is present, AND the switch on the MR3020 is in the centre position,
+lbard will attempt to operate any connected RFD900 UHF radio at 250mW instead of
+3mW.  YOU CURRENTLY REQUIRE A SPECIAL SPECTRUM LICENSE TO DO THIS!  (This will
+hopefully change with the RFD900X radios that use wider channels, and so meet
+the FCC and ACMA class licenses for the ISM 915MHz band.)
+
+4. otabid.txt
+
+If this file is present, and contains a valid Rhizome Bundle ID (BID), that
+bundle will be assumed to contain an authorised over-the-air (OTA) update, that
+will be used to update the key Serval daemons on the Mesh Extender.  Take a
+look in over-the-air-update in this repository to see how to build OTA updates.
+
+5. monitor.sid
+
+If this file is present, a MeshMS message will be sent to the SID contained in
+the file whenever an OTA update is applied.  This helps you know when your
+Mesh Extenders are running the version of binaries you expect. The Message will
+contain the GIT commit of the mesh-extender-builder repository that was used
+to create the OTA update.
+
+6. nomesh
+
+If this file is present, the ad-hoc wifi interface will be disabled. Your Mesh
+Extender will communicate with other Mesh Extenders only via RFD900 UHF packet
+radio while in this mode.  Phones will still be able to connect as wifi clients
+to the Mesh Extender.
+
+7. apssid
+
+If this file is present, the wifi access point will use the contents of the file
+as the SSID instead of public.servalproject.org.  This is handy if you have multiple
+Mesh Extenders together in a room, and want to be able to connect to specific ones
+via wifi.
+
+8. nouhf
+
+Completely disable the UHF radio by not running the LBARD daemon. Handy if taking
+your Mesh Extender to another country where the ISM 915MHz band is not permitted.
+
+999. Forbidden filenames
+
+NEVER create files on the FAT partition with the following names:
+	MeshExtender
+	ota-update
+        justinbieber
+
+
+
 Notes and Limitations
 =====================
 
 This process is still being finalised, and a few things are currently missing.
 
-The RFD900 radio (if present) does not (yet) get reflashed on first boot.  We
-intend to fix this in the next couple of days.
-
-The created image does not support full over-the-mesh/air auto-update. We
-intend to fix this, too, in the next week or so.
-
-The created image does not include the latest Serval Mesh Android APK or source
-code.  This, too, will get fixed Real Soon Now.
-
+There are sure to be bugs.
