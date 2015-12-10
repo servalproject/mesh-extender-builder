@@ -25,6 +25,9 @@ mv lbard /serval/lbard
 mv /etc/serval/runlbard /etc/serval/runlbard.ota-old
 mv runlbard /etc/serval/runlbard
 
+mv /etc/config/system /etc/config/system.ota-old
+mv system /etc/config/system
+
 mv rfd900* /serval/
 
 # Stop runlbard so that we can start it again with our new version.
