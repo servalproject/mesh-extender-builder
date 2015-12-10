@@ -1,4 +1,8 @@
-#!/bin/csh -fx
+#!/bin/csh -f
+
+set gitmessage=`git log | head -1 ; echo "[" ; git diff --shortstat ; echo "]" `
+set gitmessage=`echo $gitmessage | sed -e 's,/,,g'`
+echo $gitmessage
 
 set path=($path ~/g/serval-dna)
 
@@ -27,8 +31,10 @@ cp ../image-files/etc/serval/runlbard staging/
 if ( -e ota-complete ) then
   rm ota-complete
 endif
+cat ota-shell | sed -e "s/GITCOMMITSTUFF/${gitmessage}/" > ota-shell-subst
+
 dd if=/dev/zero of=ota-complete bs=8192 count=1
-dd conv=notrunc seek=0 if=ota-shell of=ota-complete bs=8192 count=1
+dd conv=notrunc seek=0 if=ota-shell-subst of=ota-complete bs=8192 count=1
 cat files.tgz >> ota-complete
 
 if ( -e me-ota-update.manifest ) then

@@ -37,6 +37,16 @@ kill $lbardpid
 # stop servald to allow them to respawn with the new version
 /serval/servald stop
 
+# Give servald time to restart
+sleep 10
+
+# Now send a MeshMS to whoever cares about this mesh extender
+if [ -e /dos/monitor.sid ]; then
+  RECIPIENT=`cat /dos/monitor.sid`
+  COMMIT="GITCOMMITSTUFF"
+  /serval/servald meshms send message `/serval/servald keyring list | tail -1 | cut -f1 -d:` ${RECIPIENT} "Over-the-air-update installed on this mesh extender: git ${COMMIT}"
+fi
+
 # Exit explicitly, because we are following on with a tar ball
 exit 0
 
