@@ -20,12 +20,12 @@ start() {
       echo 0 > /sys/class/leds/tp-link:green:lan/brightness
       echo 255 > /sys/class/leds/tp-link:green:wlan/brightness
       echo 255 > /sys/class/leds/tp-link:green:wps/brightness
-      usleep 0.3
+      lua -e 'require("socket"); socket.sleep(0.2);'
       echo 255 > /sys/class/leds/tp-link:green:3g/brightness
       echo 255 > /sys/class/leds/tp-link:green:lan/brightness
       echo 0 > /sys/class/leds/tp-link:green:wlan/brightness
       echo 0 > /sys/class/leds/tp-link:green:wps/brightness
-      usleep 0.3
+      lua -e 'require("socket"); socket.sleep(0.2);'
     done
   fi
   e2fsck -a
