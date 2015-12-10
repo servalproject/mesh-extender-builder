@@ -1,6 +1,6 @@
 #!/bin/csh -f
 
-set gitmessage=`git log | head -1 ; echo "[" ; git diff --shortstat ; echo "]" `
+set gitmessage=`git log | head -1 ; echo "[" ; git diff --shortstat ; echo " @ "; date ; echo "]" `
 set gitmessage=`echo $gitmessage | sed -e 's,/,,g'`
 echo $gitmessage
 
