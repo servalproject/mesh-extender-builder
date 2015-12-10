@@ -4,8 +4,18 @@
 START=47
 
 start() {
-  if [ ! -e /dev/sda1 ]; then
-    # No USB present -- this is usually caused by a known hardware bug
+  e2fsck -a
+  dosfsck /dev/sda1
+  mount -a
+  if [ -e /dev/sda1 ] && [ -e /dos/MeshExtender]; then
+    # on first boot, the partitions are mounted under /tmp instead of in
+    # the right place, so reboot
+    reboot
+  fi
+  # If that wasn't the problem, and there is no device, or it hasn't mounted,
+  # then we have a bigger problem ...
+  if [ ! -e /dev/sda1 ] || [ -e /serval/MeshExtender ] || [ -e /serval-var/MeshExtender]; then
+    # No USB present, or failed to mount -- this is usually caused by a known hardware bug
     # in the Atheros 9k USB host controller. It can only be fixed by 
     # physically removing power -- a soft reset doesn't work.
     # To at least alert the user that this is happening, we will
@@ -28,10 +38,5 @@ start() {
       lua -e 'require("socket"); socket.sleep(0.2);'
     done
   fi
-  e2fsck -a
-  dosfsck /dev/sda1
-  mount -a
 }
 
-stop() {
-}
