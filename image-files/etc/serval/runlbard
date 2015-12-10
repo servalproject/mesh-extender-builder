@@ -10,7 +10,24 @@ sleep 10
 
 while [ 1 ]
 do
-/serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald id self | tail -1` /dev/ttyATH0 
-servald stop
-sleep 3
+
+  # Check /dos for files to modify SSID of AP, and/or disable adhoc wifi (for testing lbard
+  # UHF transport)
+  if [ -e /dos/nomesh ]; then
+    ifconfig adhoc0 down
+  else
+    ifconfig adhoc0 up
+  fi
+  if [ -e /dos/apssid ]; then
+    wc=`grep ssid=${ssid} | wc -l`
+    if [ $wc -eq 0 ]; then
+      cat /var/run/hostapd-phy0.conf | sed -e 's/^ssid=.*$/ssid='"${ssid}"/' > /var/run/hostapd-phy0.conf.tmp
+      mv /var/run/hostapd-phy0.conf.tmp /var/run/hostapd-phy0.conf
+      kill -1 `cat /var/run/wifi-phy0.pid`
+    fi
+  fi
+
+  /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald id self | tail -1` /dev/ttyATH0 
+  servald stop
+  sleep 3
 done
