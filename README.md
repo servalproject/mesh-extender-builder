@@ -188,6 +188,18 @@ NEVER create files on the FAT partition with the following names:
 	ota-update
         justinbieber
 
+Providing NTP time for a Mesh Extender
+======================================
+
+Mesh Extenders look for an NTP server on 192.168.2.54 or the usual openwrt NTP
+servers via their ethernet connection.
+They probably won't share NTP information via adhoc wifi, because of how the busybox
+ntp daemon works. 
+
+We are in the process of adding a mechanism to allow Mesh Extenders to approximately
+synchronise their clocks via the RFD900 UHF packet radios for when this is not possible.
+This is just to give hopefully meaningful timestamps for logs, and should not be
+otherwise considered reliable. It will probably only be accurate to +/- a few seconds.
 
 
 Notes and Limitations
