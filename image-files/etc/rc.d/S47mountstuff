@@ -20,12 +20,12 @@ start() {
       echo 0 > /sys/class/leds/tp-link:green:lan/brightness
       echo 255 > /sys/class/leds/tp-link:green:wlan/brightness
       echo 255 > /sys/class/leds/tp-link:green:wps/brightness
-      sleep 0.3
+      usleep 0.3
       echo 255 > /sys/class/leds/tp-link:green:3g/brightness
       echo 255 > /sys/class/leds/tp-link:green:lan/brightness
       echo 0 > /sys/class/leds/tp-link:green:wlan/brightness
       echo 0 > /sys/class/leds/tp-link:green:wps/brightness
-      sleep 0.3
+      usleep 0.3
     done
   fi
   e2fsck -a
