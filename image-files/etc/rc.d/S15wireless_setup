@@ -19,3 +19,8 @@ echo $meship $meshE $apE $apip
 
 sed -e s/MESHIP/$meship/g -e s/APIP/$apip/g -e s/MESHETHER/$meshE/g  -e s/APETHER/$apE/g < /etc/config/network.template > /etc/config/network
 
+# If left hanging around can cause problems.
+# (should be deleted when we fresh install, but this doesn't always seem to be the case)
+if [ -e /etc/dnsmasq.conf ]; then
+  rm /etc/dnsmasq.conf
+fi
