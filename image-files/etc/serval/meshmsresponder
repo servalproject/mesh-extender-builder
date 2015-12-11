@@ -22,7 +22,7 @@ for command in `cat /tmp/messages`; do
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
         peers )
-		message=`/serval/servald peer list`
+		message=`/serval/servald id peers`
                 /serval/servald meshms send message $me $them "My peers are: ${message}"
                 ;;
         date )
