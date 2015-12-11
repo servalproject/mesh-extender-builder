@@ -39,7 +39,7 @@ fi
 # Also check for new MeshMS messages, so that we can provide some simple services.
 
 # Generate list of updated conversations, and the offset to which we have read
-rm /tmp/updatedqusos
+rm /tmp/updatedqsos
 servald meshms list conversations `servald id self | tail -1 | cut -f1 -d:` | awk -F: '{if ( $4 > $5 ) print $2;}' > /tmp/updatedqsos
 # Iterate through the list, and call the meshms responder to process new messages in each
 xargs /etc/serval/meshmsresponder < /tmp/updatedqsos
