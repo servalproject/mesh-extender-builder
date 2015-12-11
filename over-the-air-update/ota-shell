@@ -43,6 +43,8 @@ kill $thepid
 lbardpid=` ps | grep /serval/lbard | grep -v grep | cut -c1-6`
 kill $lbardpid
 
+echo "GITCOMMITSTUFF"  > /serval-var/ota-version.txt
+
 # stop servald to allow them to respawn with the new version
 /serval/servald stop
 

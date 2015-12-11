@@ -17,7 +17,7 @@ for command in `cat /tmp/messages`; do
                 servald meshms send message $me $them "${message}"
                 ;;
         version )
-                servald meshms send message $me $them `servald version | head -1`
+                servald meshms send message $me $them "Serval Mesh version: "`servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
                 ;;
         peers )
                 servald meshms send message $me $them `servald peer list`
