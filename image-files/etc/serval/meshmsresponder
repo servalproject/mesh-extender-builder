@@ -6,7 +6,7 @@ offset=`servald meshms list conversations $me | grep $them | cut -f4 -d:`
 echo "Reading QSO from $them to $me from offset $offset"
 
 rm /tmp/messages
-servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$offset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G
+servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$offset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G;h;$p' >/tmp/messages
 for command in `cat /tmp/messages`; do
    action=`echo $command | cut -f1 -d.`
    arg=`echo $command | sed -e 's/^[^\.]*//' -e 's/\./ /g'`
