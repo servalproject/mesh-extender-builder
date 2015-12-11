@@ -42,7 +42,7 @@ fi
 rm /tmp/updatedqusos
 servald meshms list conversations `servald id self | tail -1 | cut -f1 -d:` | awk -F: '{if ( $4 > $5 ) print $2;}' > /tmp/updatedqsos
 # Iterate through the list, and call the meshms responder to process new messages in each
-xargs /etc/serval/meshmsresponder < /tmp/updateqsos
+xargs /etc/serval/meshmsresponder < /tmp/updatedqsos
 
 sleep 10
 done
