@@ -26,10 +26,10 @@ mv /etc/serval/runlbard /etc/serval/runlbard.ota-old
 mv runlbard /etc/serval/runlbard
 
 mv /etc/serval/otaupdate /etc/serval/otaupdate.ota-old
-mv runlbard /etc/serval/otaupdate
+mv otaupdate /etc/serval/otaupdate
 
 mv /etc/serval/meshmsresponder /etc/serval/meshmsresponder.ota-old
-mv runlbard /etc/serval/meshmsresponder
+mv meshmsresponder /etc/serval/meshmsresponder
 
 mv /etc/config/system /etc/config/system.ota-old
 mv system /etc/config/system
