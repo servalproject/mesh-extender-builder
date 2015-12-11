@@ -18,10 +18,12 @@ for command in `cat /tmp/messages`; do
                 servald meshms send message $me $them "${message}"
                 ;;
         version )
-                servald meshms send message $me $them "Serval Mesh version: "`servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
+                message="Serval Mesh version: "`servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
+                servald meshms send message $me $them "${message}"
                 ;;
         peers )
-                servald meshms send message $me $them `servald peer list`
+		message=`servald peer list`
+                servald meshms send message $me $them "My peers are: ${message}"
                 ;;
         date )
                 message="I think the time is "`date`
