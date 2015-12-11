@@ -1,0 +1,37 @@
+# Answer any new MeshMS messages received in this conversation
+them=$1
+me=`servald keyring list | tail -1 | cut -f1 -d:`
+
+offset=`servald meshms list conversations $me | grep $them | cut -f4 -d:`
+echo "Reading QSO from $them to $me from offset $offset"
+
+rm /tmp/messages
+servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$offset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G
+for command in `cat /tmp/messages`; do
+   action=`echo $command | cut -f1 -d.`
+   arg=`echo $command | sed -e 's/^[^\.]*//' -e 's/\./ /g'`
+   echo $action : $arg
+   case $action in
+        help )
+                message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | cut -f1 -d\)`
+                servald meshms send message $me $them "${message}"
+                ;;
+        version )
+                servald meshms send message $me $them `servald version | head -1`
+                ;;
+        peers )
+                servald meshms send message $me $them `servald peer list`
+                ;;
+        date )
+                message="I think the time is "`date`
+                servald meshms send message $me $them "${message}"
+                ;;
+        *)
+                servald meshms send message $me $them "Sorry, I don't understand '$action$'. Message 'help' for more information."
+                ;;
+   esac
+done
+
+# Mark these messages as read
+servald meshms read messages $me $them $offset
+
