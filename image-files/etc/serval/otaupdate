@@ -30,7 +30,7 @@ if [ ! -z "$rhizomeversion" ]; then
       # Create some nice diagnostic files so that we can work out what version of
       # binaries we are using.
       ls -l /serval > /serval/www/ota-update-result.html
-      servald help > /serval/www/servald.txt
+      /serval/servald help > /serval/www/servald.txt
       strings /serval/lbard > /serval/www/lbard.txt 
     fi
   fi
@@ -40,7 +40,7 @@ fi
 
 # Generate list of updated conversations, and the offset to which we have read
 rm /tmp/updatedqsos
-servald meshms list conversations `servald id self | tail -1 | cut -f1 -d:` | awk -F: '{if ( $4 > $5 ) print $2;}' > /tmp/updatedqsos
+/serval/servald meshms list conversations `/serval/servald id self | tail -1 | cut -f1 -d:` | awk -F: '{if ( $4 > $5 ) print $2;}' > /tmp/updatedqsos
 # Iterate through the list, and call the meshms responder to process new messages in each
 xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 

@@ -1,13 +1,13 @@
 # Answer any new MeshMS messages received in this conversation
 them=$1
-me=`servald keyring list | tail -1 | cut -f1 -d:`
+me=`/serval/servald keyring list | tail -1 | cut -f1 -d:`
 
-lastoffset=`servald meshms list conversations $me | grep $them | cut -f4 -d:`
-readoffset=`servald meshms list conversations $me | grep $them | cut -f5 -d:`
+lastoffset=`/serval/servald meshms list conversations $me | grep $them | cut -f4 -d:`
+readoffset=`/serval/servald meshms list conversations $me | grep $them | cut -f5 -d:`
 echo "Reading QSO from $them to $me from offset $readoffset"
 
 rm /tmp/messages
-servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$readoffset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G;h;$p' >/tmp/messages
+/serval/servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$readoffset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G;h;$p' >/tmp/messages
 for command in `cat /tmp/messages`; do
    action=`echo $command | cut -f1 -d.`
    arg=`echo $command | sed -e 's/^[^\.]*//' -e 's/\./ /g'`
@@ -15,26 +15,26 @@ for command in `cat /tmp/messages`; do
    case $action in
         help )
                 message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | cut -f1 -d\)`
-                servald meshms send message $me $them "${message}"
+                /serval/servald meshms send message $me $them "${message}"
                 ;;
         version )
-                message="Serval Mesh version: "`servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
-                servald meshms send message $me $them "${message}"
+                message="Serval Mesh version: "`/serval/servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
+                /serval/servald meshms send message $me $them "${message}"
                 ;;
         peers )
-		message=`servald peer list`
-                servald meshms send message $me $them "My peers are: ${message}"
+		message=`/serval/servald peer list`
+                /serval/servald meshms send message $me $them "My peers are: ${message}"
                 ;;
         date )
                 message="I think the time is "`date`
-                servald meshms send message $me $them "${message}"
+                /serval/servald meshms send message $me $them "${message}"
                 ;;
         *)
-                servald meshms send message $me $them "Sorry, I don't understand '$action$'. Message 'help' for more information."
+                /serval/servald meshms send message $me $them "Sorry, I don't understand '$action$'. Message 'help' for more information."
                 ;;
    esac
 done
 
 # Mark these messages as read
-servald meshms read messages $me $them $lastoffset
+/serval/servald meshms read messages $me $them $lastoffset
 
