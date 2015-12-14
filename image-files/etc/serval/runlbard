@@ -21,7 +21,7 @@ do
   if [ -e /dos/apssid ]; then
     wc=`grep ssid=${ssid} | wc -l`
     if [ $wc -eq 0 ]; then
-      cat /var/run/hostapd-phy0.conf | sed -e 's/^ssid=.*$/ssid='"${ssid}"/' > /var/run/hostapd-phy0.conf.tmp
+      cat /var/run/hostapd-phy0.conf | sed -e 's/^ssid=.*$/ssid='"${ssid}"'/' > /var/run/hostapd-phy0.conf.tmp
       mv /var/run/hostapd-phy0.conf.tmp /var/run/hostapd-phy0.conf
       kill -1 `cat /var/run/wifi-phy0.pid`
     fi
