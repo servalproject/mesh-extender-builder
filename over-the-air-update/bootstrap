@@ -46,9 +46,11 @@ endif
 
 servald rhizome list
 
+echo servald rhizome add file --force-new `servald id self |tail -1` ota-complete me-ota-update.manifest "#arkaroolai2015" 
 servald rhizome add file --force-new `servald id self |tail -1` ota-complete me-ota-update.manifest "#arkaroolai2015" 
 
 servald rhizome list
+servald stop
 
 set bundleid=`servald rhizome list | tail -1 | cut -f3 -d:`
 echo "BID = $bundleid"
