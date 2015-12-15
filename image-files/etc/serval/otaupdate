@@ -9,6 +9,8 @@ bundleid=`cat /dos/otabid.txt`
 # Allow 10 seconds for servald to start up
 sleep 10
 
+counter=0
+
 while [ 1 ]
 do
 
@@ -43,6 +45,15 @@ rm /tmp/updatedqsos
 /serval/servald meshms list conversations `/serval/servald id self | tail -1 | cut -f1 -d:` | awk -F: '{if ( $4 > $5 ) print $2;}' > /tmp/updatedqsos
 # Iterate through the list, and call the meshms responder to process new messages in each
 xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
+
+# Stop servald every 15 minutes in case it stops responding
+# (which there is a problem with it doing: it looks alive, but rhizome transport
+# doesn't seem to happen. similarly sometimes MDP fails. not sure why).
+counter=$(($counter + 10))
+if [ $counter -gt 900 ]; then
+  counter=0
+  servald stop
+fi
 
 sleep 10
 done
