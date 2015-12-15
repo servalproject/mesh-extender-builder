@@ -2,9 +2,11 @@
 them=$1
 me=`/serval/servald keyring list | tail -1 | cut -f1 -d:`
 
-lastoffset=`/serval/servald meshms list conversations $me | grep $them | cut -f4 -d:`
-readoffset=`/serval/servald meshms list conversations $me | grep $them | cut -f5 -d:`
-echo "Reading QSO from $them to $me from offset $readoffset"
+adminsid=`cat /dos/monitor.sid`
+authorised=0
+if [ $them == $adminsid ]; then
+  authorised=1
+fi
 
 rm /tmp/messages
 /serval/servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$readoffset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G;h;$p' >/tmp/messages
@@ -13,22 +15,90 @@ for command in `cat /tmp/messages`; do
    arg=`echo $command | sed -e 's/^[^\.]*//' -e 's/\./ /g'`
    echo $action : $arg
    case $action in
-        help )
-                message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | cut -f1 -d\)`
+        help ) # Display list of commands this unit understands
+	        if [ $authorised == 1 ]; then
+	                message="I am a Serval Mesh Extender, Master. I will obey the following commands: "`cat $0 | grep " )" | grep -v grep`
+		else
+	                message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | grep -v "requires authorisation"`
+		fi
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
-        version )
+        version ) # Display version of Serval core, and last applied OTA update
                 message="Serval Mesh version: "`/serval/servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
-        peers )
+        peers ) # Display list of peers reachable at this moment
 		message=`/serval/servald id peers`
                 /serval/servald meshms send message $me $them "My peers are: ${message}"
                 ;;
-        date )
+        date ) # Display what time / date this unit thinks it is
                 message="I think the time is "`date`
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
+	reboot ) # Reboot node (requires authorisation)
+	       if [ $authorised == 1 ]; then
+		  message="Rebooting node in 5 seconds"
+		  /serval/servald meshms send message $me $them "${message}"
+		  sleep 5
+		  reboot
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
+	wifioff ) # Disable ad-hoc wifi (requires authorisation)
+	       if [ $authorised == 1 ]; then
+		  message="Disabling ad-hoc wifi; only UHF packet radio will be available for talking to other Mesh Extenders"
+		  /serval/servald meshms send message $me $them "${message}"
+		  touch /dos/nomesh
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
+	wifion ) # Enable ad-hoc wifi (requires authorisation)
+	       if [ $authorised == 1 ]; then
+		  message="Enabling ad-hoc wifi"
+		  /serval/servald meshms send message $me $them "${message}"
+		  if [ -e /dos/nomesh ]; then
+		     rm /dos/nomesh
+		  fi
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
+	uhfoff ) # Disable UHF packet radio (requires authorisation)
+	       if [ $authorised == 1 ]; then
+		  message="Disabling UHF packet radio; only ad-hoc wifi will be available for talking to other Mesh Extenders"
+		  /serval/servald meshms send message $me $them "${message}"
+		  touch /dos/nouhf
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
+	uhfon ) # Enable UHF packet radio (requires authorisation)
+	       if [ $authorised == 1 ]; then
+		  message="Enabling UHF packet radio"
+		  /serval/servald meshms send message $me $them "${message}"
+		  if [ -e /dos/nouhf ]; then
+		     rm /dos/nouhf
+		  fi
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi
+	wifissid ) # Change SSID of ad-hoc wifi (requires reboot)
+	       if [ $authorised == 1 ]; then
+		  if [ -z "$arg" ]; then
+		  	  echo $arg > /dos/apssid
+			  message="Changing wifi SSID to ${arg}. Will take effect after reboot"
+		  else
+			rm /dos/apssid
+			message="Reseting wifi SSID. Will take effect after reboot"
+		  fi
+		  /serval/servald meshms send message $me $them "${message}"
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		 
         *)
                 /serval/servald meshms send message $me $them "Sorry, I don't understand '$action$'. Message 'help' for more information."
                 ;;
