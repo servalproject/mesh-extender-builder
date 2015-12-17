@@ -50,6 +50,7 @@ xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 # (which there is a problem with it doing: it looks alive, but rhizome transport
 # doesn't seem to happen. similarly sometimes MDP fails. not sure why).
 counter=$(($counter + 10))
+echo $counter >/tmp/servald-reset-counter
 if [ $counter -gt 900 ]; then
   counter=0
   servald stop
