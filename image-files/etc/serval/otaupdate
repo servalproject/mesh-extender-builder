@@ -53,7 +53,7 @@ counter=$(($counter + 10))
 echo $counter >/tmp/servald-reset-counter
 if [ $counter -gt 900 ]; then
   counter=0
-  servald stop
+  /serval/servald stop
 fi
 
 sleep 10
