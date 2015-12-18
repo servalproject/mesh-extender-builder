@@ -35,6 +35,38 @@ for command in `cat /tmp/messages`; do
                 message="I think the time is "`date`
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
+	setname ) # Change the name of this node (requires authorisation)
+	       if [ $authorised == 1 ]; then
+	       	  /serval/servald keyring
+		  message="Renaming node to ${arg}"
+		  
+		  /serval/servald stop
+		  sleep 1
+		  /serval/servald keyring set did `servald keyring list | tail -1 | cut -f1 -d:` `servald keyring list | tail -1 | cut -f2 -d:` "${arg}"
+
+		  /serval/servald meshms send message $me $them "${message}"
+		  sleep 5
+		  reboot
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
+	setnumber ) # Change the phone number of this node (requires authorisation)
+	       if [ $authorised == 1 ]; then
+	       	  /serval/servald keyring
+		  message="Renumbering node to ${arg}"
+		  
+		  /serval/servald stop
+		  sleep 1
+		  /serval/servald keyring set did `servald keyring list | tail -1 | cut -f1 -d:` "${arg}" `servald keyring list | tail -1 | cut -f3 -d:`
+
+		  /serval/servald meshms send message $me $them "${message}"
+		  sleep 5
+		  reboot
+	        else
+		  message="You are not authorised to use this function"
+		  /serval/servald meshms send message $me $them "${message}"
+		fi		
 	reboot ) # Reboot node (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Rebooting node in 5 seconds"
