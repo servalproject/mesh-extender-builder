@@ -45,6 +45,9 @@ kill $lbardpid
 
 echo "GITCOMMITSTUFF"  > /serval-var/ota-version.txt
 
+# update radio firmware if required
+/serval/flash900 /serval/rfd900 /dev/ttyATH0
+
 # stop servald to allow them to respawn with the new version
 /serval/servald stop
 
