@@ -46,6 +46,31 @@ rm /tmp/updatedqsos
 # Iterate through the list, and call the meshms responder to process new messages in each
 xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 
+# Also update index.html if we have a helpdesk SID set, to show the most recent few
+# replies.  This implictly sets the correct index page.
+# Setup index.html based on whether this unit has a helpdesk set or not.
+if [ -e /dos/helpdesk.sid ]; then
+  apip=`cat /tmp/apip.txt`
+  helpdesksid=`cat /dos/helpdesk.sid`
+  cat /www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/www/index-temp.html
+
+  servald meshms list messages `servald id self | tail -1` `cat /dos/helpdesk.sid` | awk -F: '{ if ($4 == "<" ) { print; } }' | grep "helpsay " | tail -10 | cut -f5- -d: >/serval-var/helpreplies.txt
+  msgs=`cat /serval-var/helpreplies.txt | wc -l`
+  if [ "${msgs}" = "0" ]; then
+      echo "<tr><td>NO MESSAGES FROM THE HELP DESK</td></tr>" >>/www/index-temp.html
+  else
+      cat /serval-var/helpreplies.txt | awk '{ printf("<tr><td>%s</td></tr>\n",$*); }' >>/www/index-temp.html
+  fi
+  
+  cat /www/index-helpdesk-footer.html >>/www/index-temp.html
+  # Move the new version in quickly, to stop people getting half-loaded pages
+  # (page is set to auto-reload every 15 seconds, so that replies show up.
+  mv /www/index-temp.html /www/index.html
+else
+  cat /www/index-nohelpdesk-template.html >/www/index.html
+fi
+
+
 # Stop servald every 15 minutes in case it stops responding
 # (which there is a problem with it doing: it looks alive, but rhizome transport
 # doesn't seem to happen. similarly sometimes MDP fails. not sure why).

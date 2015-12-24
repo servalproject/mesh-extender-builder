@@ -34,6 +34,14 @@ mv meshmsresponder /etc/serval/meshmsresponder
 mv /etc/config/system /etc/config/system.ota-old
 mv system /etc/config/system
 
+mv /etc/rc.d/S94captiveportal /etc/config/S94captiveportal.old
+mv S94captiveportal /etc/rc.d/S94captiveportal
+
+mv /etc/rc.d/S15wireless_setup /etc/config/S15wireless_setup.old
+mv S15wireless_setup /etc/rc.d/S15wireless_setup
+
+mv index*html /serval/www
+
 mv rfd900* /serval/
 
 # Stop runlbard so that we can start it again with our new version.

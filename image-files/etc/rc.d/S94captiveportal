@@ -21,3 +21,6 @@ do
     interface=$line
   fi
 done
+
+# Start with default home page on captive portal.
+cat /www/index-nohelpdesk-template.html >/www/index.html

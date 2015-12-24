@@ -191,6 +191,13 @@ via wifi.
 Completely disable the UHF radio by not running the LBARD daemon. Handy if taking
 your Mesh Extender to another country where the ISM 915MHz band is not permitted.
 
+9. helpdesk.sid
+---------------
+
+Contains the SID to which messages requesting help should be sent. This is used to
+enable a web form on the main page of the mesh extender.
+
+
 999. Forbidden filenames
 
 NEVER create files on the FAT partition with the following names:

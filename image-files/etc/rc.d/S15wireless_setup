@@ -14,6 +14,8 @@ meshE=`dd if=/dev/urandom bs=5 count=1 | hexdump -e '1/1 "%02X" ":" 1/1 "%02X" "
  
 # AP IP is last 2 of mac munged to fit 172.16-31
   apip=`echo $apE |awk -F: '{ p4=("0x" substr($4,0,2))+0 ; p5=("0x" substr($5,0,2))+0  ;printf "%d.%d",(16+p4%16),p5 }' `
+# Keep AP IP handy for later use
+  echo $apip >/tmp/apip.txt
 
 echo $meship $meshE $apE $apip
 
