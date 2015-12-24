@@ -52,22 +52,22 @@ xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 if [ -e /dos/helpdesk.sid ]; then
   apip=`cat /tmp/apip.txt`
   helpdesksid=`cat /dos/helpdesk.sid`
-  cat /www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/www/index-temp.html
+  cat /serval/www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/www/index-temp.html
 
   servald meshms list messages `servald id self | tail -1` `cat /dos/helpdesk.sid` | awk -F: '{ if ($4 == "<" ) { print; } }' | grep "helpsay " | tail -10 | cut -f5- -d: >/serval-var/helpreplies.txt
   msgs=`cat /serval-var/helpreplies.txt | wc -l`
   if [ "${msgs}" = "0" ]; then
-      echo "<tr><td>NO MESSAGES FROM THE HELP DESK</td></tr>" >>/www/index-temp.html
+      echo "<tr><td>NO MESSAGES FROM THE HELP DESK</td></tr>" >>/serval/www/index-temp.html
   else
-      cat /serval-var/helpreplies.txt | awk '{ printf("<tr><td>%s</td></tr>\n",$*); }' >>/www/index-temp.html
+      cat /serval-var/helpreplies.txt | awk '{ printf("<tr><td>%s</td></tr>\n",$*); }' >>/serval/www/index-temp.html
   fi
   
-  cat /www/index-helpdesk-footer.html >>/www/index-temp.html
+  cat /serval/www/index-helpdesk-footer.html >>/serval/www/index-temp.html
   # Move the new version in quickly, to stop people getting half-loaded pages
   # (page is set to auto-reload every 15 seconds, so that replies show up.
-  mv /www/index-temp.html /www/index.html
+  mv /serval/www/index-temp.html /serval/www/index.html
 else
-  cat /www/index-nohelpdesk-template.html >/www/index.html
+  cat /serval/www/index-nohelpdesk-template.html >/serval/www/index.html
 fi
 
 
