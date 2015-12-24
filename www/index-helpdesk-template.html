@@ -1,0 +1,99 @@
+<html>
+<head>
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    } else {
+        messageform.location.value = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    messageform.location.value  = position.coords.latitude +  ","
+    + position.coords.longitude; 
+}
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+<title>Welcome to the Serval Mesh</title>
+</head>
+<body>
+<p><img src=images/dontpanic-by-flickr-bluviolin-cropped.png alt="The phrase `Don't Panic' in large friendly letters"></img>
+<p>You have connected to a Serval Mesh Extender, a device that lets you join the Serval Mesh.
+<p><b>Subject to local laws and regulations, this device provides an open service, which you are free to make use of in a respectful manner</b>
+<h2>What is the Serval Mesh?</h2>
+<p>The Serval Mesh lets you use your mobile phone (or other device) without depending on a normal mobile phone network, with some limitations.
+<p>The Serval Mesh is a free and open-source system that lets you talk to people using your phone or computer, send them text messages and share files and other resources -- all without access to the internet.  We designed the Serval Mesh to be useful during disasters, bit it is also handy in lots of other situations, too.
+<h2>Getting started</h2>
+<p>While you can use some mesh services from here in the browser, the best way to use the mesh is to install the native Serval Mesh software on your phone or computer.  Right now we only have an Android version, but we have plans to make other versions for iOS (Apple portable devices), OSX (Apple computers), Windows, Linux and other operating systems.
+<p>For more information about the Serval Mesh, visit <a href=http://servalproject.org>http://servalproject.org</a> when you have internet access, or wait until we make a mesh version of our website.
+
+<p>Choose the right version of the software from the list below, install it, and run it.  There is more documentation and help in the application.
+<table border=0 cellpadding=2 cellspacing=4>
+<tr>
+<td><a href=software/android/index.html><center><img src=images/64px-Icon-Android-Robot-by-Google.png></img><br>Android</center></a></td>
+<td><a href=software/ios/index.html><center><img src=images/64px-Icon-iPhone-by-Rugby471-user-on-commons.wikimedia.org.png></img><br>iOS/iPhone</center></a></td>
+<td><a href=software/linux/index.html><center><img src=images/64px-Tux.svg.png><br>Linux</center></a></td>
+<td><a href=software/windows/index.html><center><img src=images/64px-Icon-Windows.svg.png></img><br>Windows</center></a></td>
+<td><a href=software/osx/index.html><center><img src=images/64px-Icon-Mac.svg.png></img><br>MacOSX</center></a></td>
+<td><a href=software/source/index.html><center><img src=images/64px-Icon-Source-Code-by-Michael180-user-on-commons.wikimedia.org.png></img><br>Source Code</center></a></td>
+</tr>
+</table>
+<hr>
+<h1>Mesh Extender Assistance Request Form</h1>
+This form allows you to provide an optionally geo-tagged text message to request assistance.
+<p>
+The message will be sent to the local assistance service provider on
+the Serval Mesh.
+</p>
+<p>
+NOTE: There may not be a functional assistance provider service on this network.  You should continue to seek assistance through other means.
+</p>
+<form name=messageform method=get action="http://MESHEXTENDERIP:21506/submitmessage">
+<p>
+ Location (lat,lon): <input type=text size=40 name=location></input>
+</p>
+<p id="locationstatus">
+ Please enter location above, or wait for browser to automatically provide it for you.
+</p>
+<p>
+ Message: <input type=text size=80 name=message></input>
+</p>
+<input type=submit name=submit></input>
+</form>
+<script>
+var x = document.getElementById("locationstatus");
+getLocation();
+</script>
+
+<hr>
+<h5>The Serval Project's work has only been possible because of the generous support of the following organisations and individual donors</h5>
+<table border=0 cellpadding=5>
+<tr>
+<td><a href=http://flinders.edu.au>Flinders University</a></td>
+<td><a href=http://nlnet.nl>The NLnet Foundation</a></td>
+<td><a href=http://shuttleworthfoundation.org>The Shuttleworth Foundation</a></td>
+<td><a href=http://awesomefoundation.org>The Awesome Foundation</a></td>
+<td><a href=http://newamericafoundation.org>The New America Foundation</a></td>
+<td><a href=http://internews.org>Internews</a></td>
+</table>
+<p> and many other donors, contributors and supporters.  
+<p>Visit <a href=http://servalproject.org>servalproject.org</a> to find out how to get involved.
+<hr>
+<p><a href=images/credits.html>Image credits</a>
+</body>
+</html>
