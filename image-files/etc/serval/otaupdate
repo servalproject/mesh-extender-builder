@@ -52,7 +52,7 @@ xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 if [ -e /dos/helpdesk.sid ]; then
   apip=`cat /tmp/apip.txt`
   helpdesksid=`cat /dos/helpdesk.sid`
-  cat /serval/www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/www/index-temp.html
+  cat /serval/www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/serval/www/index-temp.html
 
   servald meshms list messages `servald id self | tail -1` `cat /dos/helpdesk.sid` | awk -F: '{ if ($4 == "<" ) { print; } }' | grep "helpsay " | tail -10 | cut -f5- -d: >/serval-var/helpreplies.txt
   msgs=`cat /serval-var/helpreplies.txt | wc -l`
