@@ -7,6 +7,11 @@ authorised=0
 if [ $them == $adminsid ]; then
   authorised=1
 fi
+helpdesksid=`cat /dos/helpdesk.sid`
+helpdesk=0
+if [ $them == $helpdesksid ]; then
+  helpdesk=1
+fi
 
 rm /tmp/messages
 /serval/servald meshms list messages $me $them  | awk -F: '{ if ($4 == "<" && $2 > '$readoffset') print $5; }' | sed -e 's/[^a-z|A-Z|0-9| ]//g' -e 's/ /./g' | sed -n '1!G;h;$p' >/tmp/messages
@@ -19,10 +24,17 @@ for command in `cat /tmp/messages`; do
 	        if [ $authorised == 1 ]; then
 	                message="I am a Serval Mesh Extender, Master. I will obey the following commands: "`cat $0 | grep " )" | grep -v grep`
 		else
-	                message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | grep -v "requires authorisation"`
+		    if [ $helpdesk == 1 ]; then
+			    message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | grep -v "requires authorisation"`
+		    else
+			    message="I am a Serval Mesh Extender. I know the following commands: "`cat $0 | grep " )" | grep -v grep | grep -v "requires authorisation|for helpdesk"`
+		    fi
 		fi
                 /serval/servald meshms send message $me $them "${message}"
                 ;;
+	helpsay ) # Reply to a helpdesk message (for helpdesk operators only)
+		    # Actually, nothing to do here: it is all implicit.
+		    # (see /etc/serval/otaupdate to see how it works)
         version ) # Display version of Serval core, and last applied OTA update
                 message="Serval Mesh version: "`/serval/servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
                 /serval/servald meshms send message $me $them "${message}"
@@ -116,7 +128,7 @@ for command in `cat /tmp/messages`; do
 	        else
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
-		fi
+		    fi
 	wifissid ) # Change SSID of ad-hoc wifi (requires reboot)
 	       if [ $authorised == 1 ]; then
 		  if [ -z "$arg" ]; then
