@@ -50,7 +50,7 @@ xargs -r sh /etc/serval/meshmsresponder < /tmp/updatedqsos
 # replies.  This implictly sets the correct index page.
 # Setup index.html based on whether this unit has a helpdesk set or not.
 if [ -e /dos/helpdesk.sid ]; then
-  apip=`cat /tmp/apip.txt`
+  apip=172.`cat /tmp/apip.txt`.1
   helpdesksid=`cat /dos/helpdesk.sid`
   cat /serval/www/index-helpdesk-template.html | sed -e "s/HELPDESKSID/${helpdesksid}/g" -e "s/MESHEXTENDERIP/${apip}/g" >/serval/www/index-temp.html
 
