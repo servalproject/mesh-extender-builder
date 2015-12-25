@@ -31,6 +31,9 @@ mv otaupdate /etc/serval/otaupdate
 mv /etc/serval/meshmsresponder /etc/serval/meshmsresponder.ota-old
 mv meshmsresponder /etc/serval/meshmsresponder
 
+mv /etc/config/uhttpd /etc/config/uhttpd.ota-old
+mv uhttpd /etc/config/uhttpd
+
 mv /etc/config/system /etc/config/system.ota-old
 mv system /etc/config/system
 
