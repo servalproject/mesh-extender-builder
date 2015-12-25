@@ -1,6 +1,10 @@
-
 # Run dnsmasq on each interface, redirecting all enquiries to the right local IP address
 # since we don't route anything.
+
+# Offer to be a gateway only on wlan0, so that we can implement a functional captive portal.
+# (we don't do it on ethernet, as that is EXTREMELY annoying when talking to a ME via ethernet
+#  and you lose internet access because your computer thinks the ME is offering internet
+#  access.)
 
 # Get list of interface names and IP addresses
 list=`ifconfig | egrep "^[a-z]|inet addr:|inet " | sed -e 's/	/ /g' -e 's/inet addr:/inet:/g' -e 's/inet /inet:/g' -e 's/^ *inet:/IP:/g' -e 's/ .*$//g' -e 's/:$//g' | grep -v 127.0.0.1`
@@ -16,11 +20,17 @@ do
     low=`echo $ip | cut -f1-3 -d.`.1
     high=`echo $ip | cut -f1-3 -d.`.255
 #    echo $interface $ip $low $high
-    dnsmasq -i ${interface} -a ${ip} --except-interface=lo --bind-interfaces --address=/\#/${ip} -h -b -f -R -C /dev/null --pid-file=/tmp/pid.dnsmasq.${ip} --dhcp-leasefile=/tmp/leases.dnsmasq.${ip} --dhcp-option=3 --dhcp-option=6,${ip} --dhcp-range=${low},${high}
+   if [ "$interface" == "wlan0" ]; then
+      gateway=,${ip}
+   else
+      gateway=
+   fi
+    
+   dnsmasq -i ${interface} -a ${ip} --except-interface=lo --bind-interfaces --server=${ip} --dhcp-option=3${gateway} --address=/\#/${ip} -h -b -f -R -C /dev/null --pid-file=/tmp/pid.dnsmasq.${ip} --dhcp-leasefile=/tmp/leases.dnsmasq.${ip} --dhcp-option=6,${ip} --dhcp-range=${low},${high}
   else
     interface=$line
   fi
 done
 
 # Start with default home page on captive portal.
-cat /www/index-nohelpdesk-template.html >/www/index.html
+cat /serval/www/index-nohelpdesk-template.html >/serval/www/index.html
