@@ -16,7 +16,7 @@ function showPosition(position) {
 function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
+            x.innerHTML = "User denied the request for Geolocation.<br><<b>WARNING:</b> If you are trying to complete this form from a pop-up that your operating system has provided, this will also cause this problem.  To solve this, close this popup, and point a browser to any web page, and it should work from there."
             break;
         case error.POSITION_UNAVAILABLE:
             x.innerHTML = "Location information is unavailable."
