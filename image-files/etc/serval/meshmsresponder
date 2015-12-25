@@ -146,7 +146,11 @@ for command in `cat /tmp/messages`; do
 			rm /dos/apssid
 			message="Reseting wifi SSID. Will take effect after reboot"
 		  fi
-		  /serval/servald meshms send message $me $them "${message}"
+		  # Kill lbard, so that /etc/serval/runlbard goes through the loop
+		  # and checks the contents of this file
+		  kill `ps | grep lbard | grep -v runlbard | grep -v grep | awk '{ print $1; }'`
+		  
+		  /serval/servald meshms send message $me $them "${message}"	
 	        else
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
