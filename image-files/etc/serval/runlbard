@@ -19,7 +19,8 @@ do
     ifconfig adhoc0 up
   fi
   if [ -e /dos/apssid ]; then
-    wc=`grep ssid=${ssid} | wc -l`
+    ssid=`cat /dos/apssid`
+    wc=`grep ssid=${ssid} /var/run/hostapd-phy0.conf | wc -l`
     if [ $wc -eq 0 ]; then
       cat /var/run/hostapd-phy0.conf | sed -e 's/^ssid=.*$/ssid='"${ssid}"'/' > /var/run/hostapd-phy0.conf.tmp
       mv /var/run/hostapd-phy0.conf.tmp /var/run/hostapd-phy0.conf
