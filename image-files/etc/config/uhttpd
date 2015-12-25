@@ -12,6 +12,9 @@ config uhttpd main
 	# Server document root
 	option home		/serval/www
 
+        # Redirect all missing pages to /, for captive portal
+        option 'error_page' '/'
+
 	# Reject requests from RFC1918 IP addresses
 	# directed to the servers public IP(s).
 	# This is a DNS rebinding countermeasure.
