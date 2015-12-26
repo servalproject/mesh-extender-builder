@@ -72,6 +72,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	setnumber ) # Change the phone number of this node (requires authorisation)
 	       if [ $authorised == 1 ]; then
 	       	  /serval/servald keyring
@@ -88,6 +89,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	reboot ) # Reboot node (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Rebooting node in 5 seconds"
@@ -98,6 +100,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	wifioff ) # Disable ad-hoc wifi (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Disabling ad-hoc wifi; only UHF packet radio will be available for talking to other Mesh Extenders"
@@ -107,6 +110,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	wifion ) # Enable ad-hoc wifi (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Enabling ad-hoc wifi"
@@ -118,6 +122,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	uhfoff ) # Disable UHF packet radio (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Disabling UHF packet radio; only ad-hoc wifi will be available for talking to other Mesh Extenders"
@@ -127,6 +132,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		
+                ;;
 	uhfon ) # Enable UHF packet radio (requires authorisation)
 	       if [ $authorised == 1 ]; then
 		  message="Enabling UHF packet radio"
@@ -138,6 +144,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		    fi
+                ;;
 	wifissid ) # Change SSID of ad-hoc wifi (requires reboot)
 	       if [ $authorised == 1 ]; then
 		  if [ -z "$arg" ]; then
@@ -156,6 +163,7 @@ for command in `cat /tmp/messages`; do
 		  message="You are not authorised to use this function"
 		  /serval/servald meshms send message $me $them "${message}"
 		fi		 
+                ;;
         *)
                 /serval/servald meshms send message $me $them "Sorry, I don't understand '$action$'. Message 'help' for more information."
                 ;;
