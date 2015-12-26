@@ -1,0 +1,45 @@
+#!/bin/csh -fx
+
+set ip=10.211.55.3
+
+# Update Makefiles for lbard, flash900 and serval-dna for openwrt packages as required
+set lbardcommit=`( cd ~/g/lbard ; git log | head -1 ) | cut -f2 -d" "`
+set flash900commit=`( cd ~/g/flash-rfd900 ; git log | head -1 ) | cut -f2 -d" "`
+set servaldcommit=`( cd ~/g/serval-dna ; git log | head -1 ) | cut -f2 -d" "`
+echo $lbardcommit $flash900commit $servaldcommit
+sleep 3
+
+if ( -e /tmp/m ) then
+  rm /tmp/m
+endif
+
+foreach thing ( flash-rfd900:$flash900commit serval-dna:$servaldcommit serval-lbard:$lbardcommit)
+   set package=`echo $thing | cut -f1 -d:`
+   set commit=`echo $thing | cut -f2 -d:`
+   set file=~/g/openwrt-packages/net/${package}/Makefile
+   set isold=`grep $commit $file | wc -l`
+   if ( $isold < 1 ) then
+     set lastrelease=`cat $file | grep PKG_RELEASE | head -1 | cut -f2 -d=`
+     @ newrelease = $lastrelease + 1
+     cat $file | \
+   	sed -e 's/^PKG_VERSION:=MESHEXTENDER-.*$/PKG_VERSION:=MESHEXTENDER-'`date +%Y%m%d.%H%M.%S`/ -e 's/^PKG_VERSION:=START.*$/PKG_VERSION:=START.'`date +%Y%m%d.%H%M.%S`/ -e 's/^PKG_SOURCE_VERSION:=.*$/PKG_SOURCE_VERSION:='${commit}'/' -e 's/^PKG_RELEASE.*$/PKG_RELEASE:='$newrelease'/' > /tmp/m
+     mv /tmp/m $file
+     (cd ~/g/openwrt-packages ; git commit -m "pull in $package commit $commit" net/${package}/Makefile )
+   endif
+end
+
+cd ~/g/openwrt-packages
+egrep "PKG.*VERSION" net/*/*
+git push origin development
+
+# Pull updated packages in and rebuild on openwrt build box
+ssh serval@${ip} "( cd openwrt12.09-for-servald/openwrt ; git pull ;  scripts/feeds update ; make V=99 )"
+
+# Pull compiled binaries from openwrt build box
+scp serval@${ip}:openwrt12.09-for-servald/openwrt/staging_dir/target-mips_r2_uClibc-0.9.33.2/root-ar71xx/usr/bin/servald ~/g/mesh-extender-builder/servald/servald
+scp serval@${ip}:openwrt12.09-for-servald/openwrt/staging_dir/target-mips_r2_uClibc-0.9.33.2/root-ar71xx/usr/bin/lbard ~/g/mesh-extender-builder/servald/lbard
+scp serval@${ip}:openwrt12.09-for-servald/openwrt/staging_dir/target-mips_r2_uClibc-0.9.33.2/root-ar71xx/usr/bin/flash900 ~/g/mesh-extender-builder/servald/flash900
+cd ~/g/mesh-extender-builder
+git commit -m "pull in updated mesh-extender binaries" servald/lbard servald/flash900 servald/servald
+git push origin
+ssh serval@${ip} "(cd mesh-extender-builder ; git pull )"
