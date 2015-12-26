@@ -43,6 +43,7 @@ for command in `cat /tmp/messages`; do
 		  message="Help reply published"
 	        fi
 		/serval/servald meshms send message $me $them "${message}"
+		;;
         version ) # Display version of Serval core, and last applied OTA update
                 message="Serval Mesh version: "`/serval/servald version | head -1`", Last OTA update: "`cat /serval-var/ota-version.txt`
                 /serval/servald meshms send message $me $them "${message}"
