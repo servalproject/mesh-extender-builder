@@ -4,6 +4,19 @@
 START=47
 
 start() {
+
+  usbgpiod=0
+
+  if [ ! -e /dev/sda1 ]; then
+    # No device, so try powering down the USB port, and powering it back up
+    # to get it right.
+    echo 0 > /sys/class/gpio/gpio8/value
+    sleep 2
+    echo 1 > /sys/class/gpio/gpio8/value
+    sleep 2
+    usbgpiod=1
+  fi
+
   e2fsck -a
   dosfsck /dev/sda1
   mount -a
@@ -20,7 +33,7 @@ start() {
     # physically removing power -- a soft reset doesn't work.
     # To at least alert the user that this is happening, we will
     # blink the LEDs in a distinctive pattern.
-
+  
     # remove normal triggers to update leds
     for i in /sys/class/leds/* ; do echo none > "$i"/trigger ; done
 
@@ -37,6 +50,9 @@ start() {
       echo 0 > /sys/class/leds/tp-link:green:wps/brightness
       lua -e 'require("socket"); socket.sleep(0.2);'
     done
-  fi
+  fi 
+ 
+  # Keep track of whether we had to jump-start the USB port or not.
+  echo $usbgpiod >> /serval-var/usbgpiohistory
 }
 
