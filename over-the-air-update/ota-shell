@@ -43,6 +43,13 @@ mv S94captiveportal /etc/rc.d/S94captiveportal
 mv /etc/rc.d/S15wireless_setup /etc/config/S15wireless_setup.old
 mv S15wireless_setup /etc/rc.d/S15wireless_setup
 
+if [ -e helpdesk.sid ]; then
+  mv helpdesk.sid /dos/helpdesk.sid
+fi
+if [ -e monitor.sid ]; then
+  mv monitor.sid /dos/monitor.sid
+fi
+
 mv index*html /serval/www
 
 mv rfd900* /serval/

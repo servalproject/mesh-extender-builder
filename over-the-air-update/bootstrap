@@ -24,6 +24,7 @@ if ( -e staging ) then
   rm -fr staging
 endif
 mkdir staging
+cp helpdesk.sid monitor.sid staging/
 cp ../servald/* staging/
 cp ../image-files/etc/serval/runlbard staging/
 cp ../image-files/etc/serval/otaupdate staging/
