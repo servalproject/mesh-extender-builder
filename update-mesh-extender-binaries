@@ -1,6 +1,6 @@
 #!/bin/csh -fx
 
-set ip=10.211.55.3
+set ip=192.168.56.104
 
 # Update Makefiles for lbard, flash900 and serval-dna for openwrt packages as required
 set lbardcommit=`( cd ~/g/lbard ; git log | head -1 ) | cut -f2 -d" "`
