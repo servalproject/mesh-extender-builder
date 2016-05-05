@@ -20,7 +20,7 @@ start() {
   mount -a
   
   # Flash radio if required
-  /serval/flash900 /serval/rfd900 /dev/ttyATH0 >/dos/flash900.log 2>&1 
+  /serval/flash900 /serval/rfd900 /dev/ttyATH0 230400 >/dos/flash900.log 2>&1 
 
   /etc/serval/runservald &
   /etc/serval/runlbard &
