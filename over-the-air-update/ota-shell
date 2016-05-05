@@ -40,6 +40,9 @@ mv system /etc/config/system
 mv /etc/rc.d/S94captiveportal /etc/config/S94captiveportal.old
 mv S94captiveportal /etc/rc.d/S94captiveportal
 
+mv /etc/rc.d/S49servald /etc/config/S49servald.old
+mv S49servald /etc/rc.d/S49servald
+
 mv /etc/rc.d/S15wireless_setup /etc/config/S15wireless_setup.old
 mv S15wireless_setup /etc/rc.d/S15wireless_setup
 
