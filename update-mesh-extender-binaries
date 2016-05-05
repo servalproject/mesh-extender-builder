@@ -33,7 +33,7 @@ egrep "PKG.*VERSION" net/*/*
 git push origin development
 
 # Pull updated packages in and rebuild on openwrt build box
-ssh serval@${ip} "( cd openwrt12.09-for-servald/openwrt ; git pull ;  scripts/feeds update ; make V=99 )"
+ssh serval@${ip} "( cd openwrt12.09-for-servald/openwrt ; rm staging_dir/target-mips_r2_uClibc-0.9.33.2/root-ar71xx/usr/bin/{servald,lbard,flash900} ; git pull ;  scripts/feeds update ; make V=99 package/{serval-dna,flash-rfd900,serval-lbard}/{clean,compile,install} package/index )"
 
 # Pull compiled binaries from openwrt build box
 scp serval@${ip}:openwrt12.09-for-servald/openwrt/staging_dir/target-mips_r2_uClibc-0.9.33.2/root-ar71xx/usr/bin/servald ~/g/mesh-extender-builder/servald/servald
