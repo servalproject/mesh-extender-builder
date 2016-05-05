@@ -33,7 +33,7 @@ do
     /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald id self | tail -1` /dev/ttyATH0 rebootwhenstuck timeslave udptime logrejects meshmsonly minversion=2015/11/10
     # If LBARD stops or dies, try reflashing the radio incase flashing it on boot failed.
     # (we have seen this happen once)
-    /serval/flash900 /serval/rfd900 /dev/ttyATH0 
+    /serval/flash900 /serval/rfd900 /dev/ttyATH0 230400
     # We also take the opportunity to restart servald to make it fresh and keep everything in step
     servald stop
     sleep 3
