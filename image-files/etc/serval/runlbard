@@ -30,7 +30,7 @@ do
 
   if [ ! -e /dos/nouhf ]; then
     # Run LBARD
-    /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald id self | tail -1` /dev/ttyATH0 rebootwhenstuck timeslave udptime logrejects meshmsonly minversion=2015/11/10
+    /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald keyring list | tail -1 | cut -f1 -d:` /dev/ttyATH0 rebootwhenstuck timeslave udptime logrejects meshmsonly
     # If LBARD stops or dies, try reflashing the radio incase flashing it on boot failed.
     # (we have seen this happen once)
     /serval/flash900 /serval/rfd900 /dev/ttyATH0 230400
