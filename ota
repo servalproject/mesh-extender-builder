@@ -1,0 +1,4 @@
+cd over-the-air-update
+./bootstrap
+./stop-broadcast
+./broadcast
