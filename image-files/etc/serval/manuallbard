@@ -1,1 +1,1 @@
-kill `ps | grep lbard | cut -c1-5` ; /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald keyring list | tail -1 | cut -f1 -d:` /dev/ttyATH0 rebootwhenstuck timeslave udptime logrejects meshmsonly
+kill `ps | grep lbard | grep -v manual | cut -c1-5` ; /serval/lbard 127.0.0.1:4110 lbard:lbard `/serval/servald keyring list | tail -1 | cut -f1 -d:` /dev/ttyATH0 rebootwhenstuck timeslave udptime logrejects meshmsonly
