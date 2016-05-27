@@ -25,6 +25,8 @@ mv lbard /serval/lbard
 mv /etc/serval/runlbard /etc/serval/runlbard.ota-old
 mv runlbard /etc/serval/runlbard
 
+mv manuallbard /etc/serval/manuallbard
+
 mv /etc/serval/otaupdate /etc/serval/otaupdate.ota-old
 mv otaupdate /etc/serval/otaupdate
 

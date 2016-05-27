@@ -27,6 +27,7 @@ mkdir staging
 cp helpdesk.sid monitor.sid staging/
 cp ../servald/* staging/
 cp ../image-files/etc/serval/runlbard staging/
+cp ../image-files/etc/serval/manuallbard staging/
 cp ../image-files/etc/serval/otaupdate staging/
 cp ../image-files/etc/serval/meshmsresponder staging/
 cp ../image-files/etc/config/system staging/
