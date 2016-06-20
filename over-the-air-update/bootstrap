@@ -34,6 +34,7 @@ cp ../image-files/etc/config/system staging/
 cp ../image-files/etc/config/uhttpd staging/
 cp ../image-files/etc/rc.d/S94captiveportal staging/
 cp ../image-files/etc/rc.d/S49servald staging/
+cp ../image-files/etc/rc.d/S47mountstuff staging/
 cp ../image-files/etc/rc.d/S15wireless_setup staging/
     
 cp ../image-files/www/index*html staging/
