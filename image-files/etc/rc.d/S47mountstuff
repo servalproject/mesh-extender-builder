@@ -17,7 +17,8 @@ start() {
     usbgpiod=1
   fi
 
-  e2fsck -y
+  e2fsck -y /dev/sda2
+  e2fsck -y /dev/sda3
   dosfsck -y /dev/sda1
   mount -a
   if [ -e /dev/sda1 ] && [ -e /dos/MeshExtender]; then
