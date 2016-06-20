@@ -33,6 +33,7 @@ start() {
     # physically removing power -- a soft reset doesn't work.
     # To at least alert the user that this is happening, we will
     # blink the LEDs in a distinctive pattern.
+    # XXX - We might be able to use the GPIO that cuts USB host power to fix this situation.
   
     # remove normal triggers to update leds
     for i in /sys/class/leds/* ; do echo none > "$i"/trigger ; done
