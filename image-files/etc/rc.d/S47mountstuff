@@ -17,8 +17,8 @@ start() {
     usbgpiod=1
   fi
 
-  e2fsck -a
-  dosfsck /dev/sda1
+  e2fsck -y
+  dosfsck -y /dev/sda1
   mount -a
   if [ -e /dev/sda1 ] && [ -e /dos/MeshExtender]; then
     # on first boot, the partitions are mounted under /tmp instead of in
