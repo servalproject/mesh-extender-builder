@@ -21,14 +21,14 @@ start() {
   e2fsck -y /dev/sda3
   dosfsck -y /dev/sda1
   mount -a
-  if [ -e /dev/sda1 ] && [ -e /dos/MeshExtender]; then
+  if [ -e /dev/sda1 ] && [ -e /dos/MeshExtender ]; then
     # on first boot, the partitions are mounted under /tmp instead of in
     # the right place, so reboot
     reboot
   fi
   # If that wasn't the problem, and there is no device, or it hasn't mounted,
   # then we have a bigger problem ...
-  if [ ! -e /dev/sda1 ] || [ -e /serval/MeshExtender ] || [ -e /serval-var/MeshExtender]; then
+  if [ ! -e /dev/sda1 ] || [ -e /serval/MeshExtender ] || [ -e /serval-var/MeshExtender ]; then
     # No USB present, or failed to mount -- this is usually caused by a known hardware bug
     # in the Atheros 9k USB host controller. It can only be fixed by 
     # physically removing power -- a soft reset doesn't work.
