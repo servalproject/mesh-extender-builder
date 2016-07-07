@@ -1,53 +1,136 @@
-<html>
+<html lang="en">
 <head>
-<meta http-equiv=”refresh” content=”15" />
-<title>Welcome to the Serval Mesh</title>
+	<title>Serval Project</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/custom.css">
+	
+	
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	
+	<script type="text/javascript" src="/js/customScript.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script>
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition,showError);
+			} else {
+				messageform.location.value = "Geolocation is not supported by this browser.";
+			}
+		}
+		function showPosition(position) {
+			messageform.location.value  = position.coords.latitude +  ","
+			+ position.coords.longitude; 
+		}
+		function showError(error) {
+			switch(error.code) {
+				case error.PERMISSION_DENIED:
+					x.innerHTML = "User denied the request for Geolocation.<br><<b>WARNING:</b> If you are trying to complete this form from a pop-up that your operating system has provided, this will also cause this problem.  To solve this, close this popup, and point a browser to any web page, and it should work from there."
+					break;
+				case error.POSITION_UNAVAILABLE:
+					x.innerHTML = "Location information is unavailable."
+					break;
+				case error.TIMEOUT:
+					x.innerHTML = "The request to get user location timed out."
+					break;
+				case error.UNKNOWN_ERROR:
+					x.innerHTML = "An unknown error occurred."
+					break;
+			}
+		}
+	</script>
 </head>
-<body>
-<p><img src=images/dontpanic-by-flickr-bluviolin-cropped.png alt="The phrase `Don't Panic' in large friendly letters"></img>
-<p>You have connected to a Serval Mesh Extender, a device that lets you join the Serval Mesh.
-<p><b>Subject to local laws and regulations, this device provides an open service, which you are free to make use of in a respectful manner</b>
-<h2>What is the Serval Mesh?</h2>
-<p>The Serval Mesh lets you use your mobile phone (or other device) without depending on a normal mobile phone network, with some limitations.
-<p>The Serval Mesh is a free and open-source system that lets you talk to people using your phone or computer, send them text messages and share files and other resources -- all without access to the internet.  We designed the Serval Mesh to be useful during disasters, bit it is also handy in lots of other situations, too.
-<h2>Getting started</h2>
-<p>While you can use some mesh services from here in the browser, the best way to use the mesh is to install the native Serval Mesh software on your phone or computer.  Right now we only have an Android version, but we have plans to make other versions for iOS (Apple portable devices), OSX (Apple computers), Windows, Linux and other operating systems.
-<p>For more information about the Serval Mesh, visit <a href=http://servalproject.org>http://servalproject.org</a> when you have internet access, or wait until we make a mesh version of our website.
+<body id="page-top">
+	<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#page-top">Serval Project</a>
+			</div>
 
-<p>Choose the right version of the software from the list below, install it, and run it.  There is more documentation and help in the application.
-<table border=0 cellpadding=2 cellspacing=4>
-<tr>
-<td><a href=software/android/index.html><center><img src=images/64px-Icon-Android-Robot-by-Google.png></img><br>Android</center></a></td>
-<td><a href=software/ios/index.html><center><img src=images/64px-Icon-iPhone-by-Rugby471-user-on-commons.wikimedia.org.png></img><br>iOS/iPhone</center></a></td>
-<td><a href=software/linux/index.html><center><img src=images/64px-Tux.svg.png><br>Linux</center></a></td>
-<td><a href=software/windows/index.html><center><img src=images/64px-Icon-Windows.svg.png></img><br>Windows</center></a></td>
-<td><a href=software/osx/index.html><center><img src=images/64px-Icon-Mac.svg.png></img><br>MacOSX</center></a></td>
-<td><a href=software/source/index.html><center><img src=images/64px-Icon-Source-Code-by-Michael180-user-on-commons.wikimedia.org.png></img><br>Source Code</center></a></td>
-</tr>
-</table>
-<hr>
-<h1>No helpdesk has been configured for this Serval Mesh Extender</h1>
-<p>
-You can set up a help desk for this unit by putting the Serval ID (SID) of the
-help desk into a file called helpdesk.sid file on the USB
-memory stick of this device, or including that file in an over-the-air (OTA)
-update, if you have enrolled this unit in OTA updates (see the
-documentation at http://github.com/servalproject/mesh-extender-builder
-for information on how to do this).
-<hr>
-<h5>The Serval Project's work has only been possible because of the generous support of the following organisations and individual donors</h5>
-<table border=0 cellpadding=5>
-<tr>
-<td><a href=http://flinders.edu.au>Flinders University</a></td>
-<td><a href=http://nlnet.nl>The NLnet Foundation</a></td>
-<td><a href=http://shuttleworthfoundation.org>The Shuttleworth Foundation</a></td>
-<td><a href=http://awesomefoundation.org>The Awesome Foundation</a></td>
-<td><a href=http://newamericafoundation.org>The New America Foundation</a></td>
-<td><a href=http://internews.org>Internews</a></td>
-</table>
-<p> and many other donors, contributors and supporters.  
-<p>Visit <a href=http://servalproject.org>servalproject.org</a> to find out how to get involved.
-<hr>
-<p><a href=images/credits.html>Image credits</a>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  
+			  
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a class="clickAction" href="#section-about">About</a></li>
+				<li><a class="clickAction" href="#separator1">Download</a></li>
+				<li><a class="clickAction" href="#separator2">Help!</a></li>
+				
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+	</nav>
+	<section id="background-section">
+		<section id="section-about">
+		
+			<h1 align="center">Where are you?</h1>
+			<br>
+			<div>
+				<p id="p1" class="text">You have connected to a Serval Mesh Extender, a device that lets you join the Serval Mesh.<br>
+				<b>Subject to local laws and regulations, this device provides an open service, which you are free to make use of in a respectful manner</b></p>
+				
+				<h3>What is the Serval Mesh?</h3>
+				<p>The Serval Mesh lets you use your mobile phone (or other device) without depending on a normal mobile phone network, with some limitations.
+				<br>The Serval Mesh is a free and open-source system that lets you talk to people using your phone or computer, send them text messages and share files and other resources -- all without access to the internet.
+				<br>We designed the Serval Mesh to be useful during disasters, but it is also handy in lots of other situations, too.</p>
+				
+				<h3>Getting started</h3>
+				<p>While you can use some mesh services from here in the browser, the best way to use the mesh is to install the native Serval Mesh software on your phone or computer.  Right now we only have an Android version, but we have plans to make other versions for iOS (Apple portable devices), OSX (Apple computers), Windows, Linux and other operating systems.
+				<br>For more information about the Serval Mesh, visit <a href=http://servalproject.org>http://servalproject.org</a> when you have internet access, or wait until we make a mesh version of our website.</p>
+			</div>
+		</section>
+		<hr class="primary" id="separator1">
+		<section id="section-download">
+			<div>
+				<h1 align="center">Download</h1>
+				<br>
+				<p>Choose the right version of the software from the list below, install it, and run it.  There is more documentation and help in the application.
+				<br><br>
+				<div style="overflow-x:auto;">
+					<table id="download-table">
+						<tr>
+							<td align="center"><a class='aClass' href=/software/android/index.html><img src=/images/64px-Icon-Android-Robot-by-Google.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/ios/index.html><img src=/images/64px-Icon-iPhone-by-Rugby471-user-on-commons.wikimedia.org.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/linux/index.html><img src=/images/64px-Tux.svg.png></a></td>
+							<td align="center"><a class='aClass' href=/software/windows/index.html><img src=/images/64px-Icon-Windows.svg.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/osx/index.html><img src=/images/64px-Icon-Mac.svg.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/source/index.html><img src=/images/64px-Icon-Source-Code-by-Michael180-user-on-commons.wikimedia.org.png></img></a></td>
+						</tr>
+						<tr>
+							<td align="center">Android</td>
+							<td align="center">iOS/iPhone</td>
+							<td align="center">Linux</td>
+							<td align="center">Windows</td>
+							<td align="center">MacOSX</td>
+							<td align="center">Source Code</td>
+					</table>
+				</div>
+			</div>
+		</section>
+		
+		<hr class="primary" id="separator2">
+		<section id="section-help">
+			<h1 align="center">Ask for help</h1>
+			
+			<p>
+				<b>No helpdesk has been configured for this Serval Mesh Extender</b>
+				<br>
+				You can set up a help desk for this unit by putting the Serval ID (SID) of the
+				help desk into a file called helpdesk.sid file on the USB
+				memory stick of this device, or including that file in an over-the-air (OTA)
+				update, if you have enrolled this unit in OTA updates (see the
+				documentation at http://github.com/servalproject/mesh-extender-builder
+				for information on how to do this).
+			</p>
+		</section>
+	</section>
+	
+	
 </body>
 </html>

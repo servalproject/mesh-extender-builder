@@ -1,0 +1,138 @@
+/* If no padding, the navbar overflow some text in the page*/
+#background-section{
+	background-image : url(../images/sky.jpg);
+	background-attachment:fixed;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+#section-about{
+	padding: 50px 0;
+	padding-left : 10%;
+	padding-right : 10%;
+}
+
+#section-download{
+	padding-top : 25px;
+	padding-bottom : 50px;
+	padding-left : 10%;
+	padding-right : 10%;
+}
+
+#section-help{
+	padding-top : 25px;
+	padding-bottom : 50px;
+	padding-left : 10%;
+	padding-right : 10%;
+}
+
+.section-app{
+	padding: 50px 0;
+	padding-left : 10%;
+	padding-right : 10%;
+}
+
+#download-table{
+	width : 50%;
+}
+
+#location{
+	width:80%;
+}
+#message {
+	resize: none;
+	width : 90%
+}
+
+p {
+	overflow-wrap:break-word;
+}
+
+hr {
+    max-width: 40%;
+ /*   border-color: #f06338;*/
+	border-color : white;
+    border-width: 3px;
+}
+
+.text-faded{
+	color: rgba(0,0,0,.5);
+}
+/*images/dontpanic-by-flickr-bluviolin-cropped.png*/
+
+/* navbar colors (override default colors set in bootstrap.min.css) */
+.navbar-default {
+	/*Default background-color of the navbar*/
+    /*background-color: #F8F8F8;*/
+	background-color: #f06338;
+    border-color: #E7E7E7;
+}
+/* title */
+.navbar-default .navbar-brand {
+    /* Default color of the navbar title font */
+	/*color: #777;*/
+	color: black;
+	
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: white;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+	
+    /* Default color of the navbar link font */
+	/*color: #777;*/
+    color: black;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: white;
+}
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: white;
+    background-color: #333;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+/* caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+.navbar-default .navbar-nav > .open > a .caret, 
+.navbar-default .navbar-nav > .open > a:hover .caret, 
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+/* mobile version */
+.navbar-default .navbar-toggle {
+    border-color: #333;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #f06338;
+	}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #333;
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+    }
+}

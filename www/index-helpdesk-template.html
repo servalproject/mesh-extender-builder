@@ -1,102 +1,178 @@
-<html>
+<html lang="en">
 <head>
-<meta http-equiv=”refresh” content=”15" />
-<script>
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition,showError);
-    } else {
-        messageform.location.value = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    messageform.location.value  = position.coords.latitude +  ","
-    + position.coords.longitude; 
-}
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation.<br><<b>WARNING:</b> If you are trying to complete this form from a pop-up that your operating system has provided, this will also cause this problem.  To solve this, close this popup, and point a browser to any web page, and it should work from there."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
-}
-</script>
-<title>Welcome to the Serval Mesh</title>
+	<title>Serval Project</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/custom.css">
+	
+	
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	
+	<script type="text/javascript" src="/js/customScript.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script>
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition,showError);
+			} else {
+				messageform.location.value = "Geolocation is not supported by this browser.";
+			}
+		}
+		function showPosition(position) {
+			messageform.location.value  = position.coords.latitude +  ","
+			+ position.coords.longitude; 
+		}
+		function showError(error) {
+			switch(error.code) {
+				case error.PERMISSION_DENIED:
+					x.innerHTML = "User denied the request for Geolocation.<br><<b>WARNING:</b> If you are trying to complete this form from a pop-up that your operating system has provided, this will also cause this problem.  To solve this, close this popup, and point a browser to any web page, and it should work from there."
+					break;
+				case error.POSITION_UNAVAILABLE:
+					x.innerHTML = "Location information is unavailable."
+					break;
+				case error.TIMEOUT:
+					x.innerHTML = "The request to get user location timed out."
+					break;
+				case error.UNKNOWN_ERROR:
+					x.innerHTML = "An unknown error occurred."
+					break;
+			}
+		}
+	</script>
 </head>
-<body>
-<p><img src=images/dontpanic-by-flickr-bluviolin-cropped.png alt="The phrase `Don't Panic' in large friendly letters"></img>
-<p>You have connected to a Serval Mesh Extender, a device that lets you join the Serval Mesh.
-<p><b>Subject to local laws and regulations, this device provides an open service, which you are free to make use of in a respectful manner</b>
-<h2>What is the Serval Mesh?</h2>
-<p>The Serval Mesh lets you use your mobile phone (or other device) without depending on a normal mobile phone network, with some limitations.
-<p>The Serval Mesh is a free and open-source system that lets you talk to people using your phone or computer, send them text messages and share files and other resources -- all without access to the internet.  We designed the Serval Mesh to be useful during disasters, bit it is also handy in lots of other situations, too.
-<h2>Getting started</h2>
-<p>While you can use some mesh services from here in the browser, the best way to use the mesh is to install the native Serval Mesh software on your phone or computer.  Right now we only have an Android version, but we have plans to make other versions for iOS (Apple portable devices), OSX (Apple computers), Windows, Linux and other operating systems.
-<p>For more information about the Serval Mesh, visit <a href=http://servalproject.org>http://servalproject.org</a> when you have internet access, or wait until we make a mesh version of our website.
+<body id="page-top">
+	<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#page-top">Serval Project</a>
+			</div>
 
-<p>Choose the right version of the software from the list below, install it, and run it.  There is more documentation and help in the application.
-<table border=0 cellpadding=2 cellspacing=4>
-<tr>
-<td><a href=software/android/index.html><center><img src=images/64px-Icon-Android-Robot-by-Google.png></img><br>Android</center></a></td>
-<td><a href=software/ios/index.html><center><img src=images/64px-Icon-iPhone-by-Rugby471-user-on-commons.wikimedia.org.png></img><br>iOS/iPhone</center></a></td>
-<td><a href=software/linux/index.html><center><img src=images/64px-Tux.svg.png><br>Linux</center></a></td>
-<td><a href=software/windows/index.html><center><img src=images/64px-Icon-Windows.svg.png></img><br>Windows</center></a></td>
-<td><a href=software/osx/index.html><center><img src=images/64px-Icon-Mac.svg.png></img><br>MacOSX</center></a></td>
-<td><a href=software/source/index.html><center><img src=images/64px-Icon-Source-Code-by-Michael180-user-on-commons.wikimedia.org.png></img><br>Source Code</center></a></td>
-</tr>
-</table>
-<hr>
-<h1>Mesh Extender Assistance Request Form</h1>
-This form allows you to provide an optionally geo-tagged text message
-to request assistance, if for some reason you are unable to run the
-Serval Mesh app on your device. The message will be sent to the local
-assistance service provider on the Serval Mesh.
-<p>
-<b>NOTE</b>: Before sending a message, please read through the replies listed below
-the form, in case your question has already been asked.
-<p>
-<b>NOTE</b>: There may not be a functional assistance provider service on
-this network.  You should continue to seek assistance through other
-means.
-<p>
-<b>NOTE</b>: Any reply will be publicly readable by anyone from this device, and
-only the most recent few replies will be visible.  You should not
-assume that your message has been received, until you receive a reply.
-<p>
-The Serval ID (SID) for your helpdesk is HELPDESKSID. You can change
-this by modifying the contents of the helpdesk.sid file on the USB
-memory stick of this device, or including that file in an over-the-air (OTA)
-update, if you have enrolled this unit in OTA updates (see the
-documentation at http://github.com/servalproject/mesh-extender-builder
-for information on how to do this).
-</p>
-<form name=messageform method=get action="http://MESHEXTENDERIP:21506/submitmessage">
-<p>
- Location (lat,lon): <input type=text size=40 name=location></input>
-</p>
-<p id="locationstatus">
- Please enter location above, or wait for browser to automatically provide it for you.
-</p>
-<p>
- Message: <input type=text size=80 name=message></input>
-</p>
-<input type=submit name=submit></input>
-</form>
-<script>
-var x = document.getElementById("locationstatus");
-getLocation();
-</script>
-<p>
-<h2>Mesh Extender Assistance Replies</h2>
-The most recent message appears at the top of the list.
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  
+			  
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a class="clickAction" href="#section-about">About</a></li>
+				<li><a class="clickAction" href="#separator1">Download</a></li>
+				<li><a class="clickAction" href="#separator2">Help!</a></li>
+				
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+	</nav>
+	<section id="background-section">
+		<section id="section-about">
+		
+			<h1 align="center">Where are you?</h1>
+			<br>
+			<div>
+				<p id="p1" class="text">You have connected to a Serval Mesh Extender, a device that lets you join the Serval Mesh.<br>
+				<b>Subject to local laws and regulations, this device provides an open service, which you are free to make use of in a respectful manner</b></p>
+				
+				<h3>What is the Serval Mesh?</h3>
+				<p>The Serval Mesh lets you use your mobile phone (or other device) without depending on a normal mobile phone network, with some limitations.
+				<br>The Serval Mesh is a free and open-source system that lets you talk to people using your phone or computer, send them text messages and share files and other resources -- all without access to the internet.
+				<br>We designed the Serval Mesh to be useful during disasters, but it is also handy in lots of other situations, too.</p>
+				
+				<h3>Getting started</h3>
+				<p>While you can use some mesh services from here in the browser, the best way to use the mesh is to install the native Serval Mesh software on your phone or computer.  Right now we only have an Android version, but we have plans to make other versions for iOS (Apple portable devices), OSX (Apple computers), Windows, Linux and other operating systems.
+				<br>For more information about the Serval Mesh, visit <a href=http://servalproject.org>http://servalproject.org</a> when you have internet access, or wait until we make a mesh version of our website.</p>
+			</div>
+		</section>
+		<hr class="primary" id="separator1">
+		<section id="section-download">
+			<div>
+				<h1 align="center">Download</h1>
+				<br>
+				<p>Choose the right version of the software from the list below, install it, and run it.  There is more documentation and help in the application.
+				<br><br>
+				<div style="overflow-x:auto;">
+					<table id="download-table">
+						<tr>
+							<td align="center"><a class='aClass' href=/software/android/index.html><img src=/images/64px-Icon-Android-Robot-by-Google.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/ios/index.html><img src=/images/64px-Icon-iPhone-by-Rugby471-user-on-commons.wikimedia.org.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/linux/index.html><img src=/images/64px-Tux.svg.png></a></td>
+							<td align="center"><a class='aClass' href=/software/windows/index.html><img src=/images/64px-Icon-Windows.svg.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/osx/index.html><img src=/images/64px-Icon-Mac.svg.png></img></a></td>
+							<td align="center"><a class='aClass' href=/software/source/index.html><img src=/images/64px-Icon-Source-Code-by-Michael180-user-on-commons.wikimedia.org.png></img></a></td>
+						</tr>
+						<tr>
+							<td align="center">Android</td>
+							<td align="center">iOS/iPhone</td>
+							<td align="center">Linux</td>
+							<td align="center">Windows</td>
+							<td align="center">MacOSX</td>
+							<td align="center">Source Code</td>
+					</table>
+				</div>
+			</div>
+		</section>
+		
+		<hr class="primary" id="separator2">
+			<section id="section-help">
+				<div>
+					<h1 align="center">Ask for help</h1>
+					<p>This form allows you to provide an optionally geo-tagged text message to request assistance, if for some reason you are unable to run the Serval Mesh app on your device. The message will be sent to the local assistance service provider on the Serval Mesh.</p>
+					<p class="text-faded">
+						<b>NOTE</b>: Before sending a message, please read through the replies listed below
+						the form, in case your question has already been asked.
+						<br>
+						There may not be a functional assistance provider service on
+						this network.  You should continue to seek assistance through other
+						means.
+						<br>
+						Any reply will be publicly readable by anyone from this device, and
+						only the most recent few replies will be visible.  You should not
+						assume that your message has been received, until you receive a reply.
+					</p>	
+					<br>
+					<p>
+						The Serval ID (SID) for your helpdesk is HELPDESKSID. You can change
+						this by modifying the contents of the helpdesk.sid file on the USB
+						memory stick of this device, or including that file in an over-the-air (OTA)
+						update, if you have enrolled this unit in OTA updates (see the
+						documentation at http://github.com/servalproject/mesh-extender-builder
+						for information on how to do this).
+					</p>
+					<br>
+					<form name=messageform method=get action="http://MESHEXTENDERIP:21506/submitmessage" align="center">
+						<p>
+							Location (lat,lon):
+							<br>
+							<input id="location" type=text name=location></input>
+						</p>
+						<p id="locationstatus">
+							Please enter location above, or wait for browser to automatically provide it for you.
+						</p>
+						<p>
+							Message:
+							<br>
+							<textarea id="message" name="message" rows="10" placeholder="Type your message here and click the submit button when it's done"></textarea>
+							<br>
+							<!--<input type=text size=80 name=message></input>-->
+						</p>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<script>
+						var x = document.getElementById("locationstatus");
+						getLocation();
+					</script>
+					<p>
+						<h3>Mesh Extender Assistance Replies</h3>
+						The most recent message appears at the top of the list.
 
-<table border=1 padding=2>
+					<table border=1 padding=2>
+					
+				</div>
+		</section>
+	</section>
+	
+	
+</body>
+</html>

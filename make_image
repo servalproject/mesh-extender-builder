@@ -9,8 +9,8 @@ fi;
 
 # Build image with all the right packages, and the extra configuration files we need.
 cd OpenWrt-ImageBuilder-ar71xx_generic-for-linux-i486
-make -Iinclude image PROFILE=TLMR3020 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk kmod-fs-ext4 kmod-fs-vfat kmod-nls-iso8859-1 librt terminfo dosfsck uhttpd lua luasocket lsof librpc" FILES=../image-files
-make -Iinclude image PROFILE=TLMR3040 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk kmod-fs-ext4 kmod-fs-vfat kmod-nls-iso8859-1 librt terminfo dosfsck uhttpd lua luasocket lsof librpc" FILES=../image-files
+make -Iinclude image PROFILE=TLMR3020 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk kmod-fs-ext4 kmod-fs-vfat kmod-nls-iso8859-1 librt terminfo dosfsck uhttpd uhttpd-mod-tls lua luasocket lsof librpc luci-ssl" FILES=../image-files
+make -Iinclude image PROFILE=TLMR3040 "PACKAGES=kmod-lib-crc16 kmod-scsi-core kmod-usb-storage-extras kmod-usb-storage libuuid libblkid libcom_err libpthread libext2fs e2fsprogs kmod-nls-cp437 fdisk kmod-fs-ext4 kmod-fs-vfat kmod-nls-iso8859-1 librt terminfo dosfsck uhttpd uhttpd-mod-tls lua luasocket lsof librpc luci-ssl" FILES=../image-files
 
 # Copy build image to here, and show the user
 cp bin/ar71xx/openwrt-ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ..
