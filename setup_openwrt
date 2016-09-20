@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ ! -e openwrt ]; then
+  git clone https://github.com/openwrt/openwrt.git
+fi
+
+# XXX - We need a nice way to build for multiple targets simultaneously
+
+# Apply Mesh Extender configuration (for GL-AR150 target)
+# and then build.
+cp openwrt.config openwrt/.config
+cd openwrt
+make -j4
+
