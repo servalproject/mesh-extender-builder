@@ -4,6 +4,16 @@ if [ ! -e openwrt ]; then
   git clone https://github.com/openwrt/openwrt.git
 fi
 
+# Add serval to feeds.conf
+if [ ! -e openwrt/feeds.conf ]; then
+  cat openwrt/feeds.conf.default | grep -v "^#" > openwrt/feeds.conf
+  echo "src-git serval https://github.com/servalproject/openwrt-packages.git" >> openwrt/feeds.conf
+  cd openwrt
+  scripts/feeds update
+  cd ..
+fi
+
+
 # XXX - We need a nice way to build for multiple targets simultaneously
 
 # Apply Mesh Extender configuration (for GL-AR150 target)
@@ -11,4 +21,5 @@ fi
 cp openwrt.config openwrt/.config
 cd openwrt
 make -j4
+cd ..
 
