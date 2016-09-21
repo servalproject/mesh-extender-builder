@@ -7,9 +7,12 @@ fi
 # Add serval to feeds.conf
 if [ ! -e openwrt/feeds.conf ]; then
   cat openwrt/feeds.conf.default | grep -v "^#" > openwrt/feeds.conf
-  echo "src-git serval https://github.com/servalproject/openwrt-packages.git" >> openwrt/feeds.conf
+  echo "src-git serval https://github.com/servalproject/openwrt-packages.git;development" >> openwrt/feeds.conf
   cd openwrt
   scripts/feeds update
+  scripts/feeds install -d y serval-dna
+  scripts/feeds install -d y flash-rfd900
+  scripts/feeds install -d y serval-lbard
   cd ..
 fi
 
