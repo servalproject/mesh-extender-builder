@@ -9,12 +9,14 @@ if [ ! -e openwrt/feeds.conf ]; then
   cat openwrt/feeds.conf.default | grep -v "^#" > openwrt/feeds.conf
   echo "src-git serval https://github.com/servalproject/openwrt-packages.git;development" >> openwrt/feeds.conf
   cd openwrt
-  scripts/feeds update
   scripts/feeds install -d y serval-dna
   scripts/feeds install -d y flash-rfd900
   scripts/feeds install -d y serval-lbard
   cd ..
 fi
+
+# Update serval package feed if required
+( cd openwrt ; scripts/feeds update )
 
 
 # XXX - We need a nice way to build for multiple targets simultaneously
@@ -23,6 +25,10 @@ fi
 # and then build.
 cp openwrt.config openwrt/.config
 cd openwrt
-make -j4
+make V=99
 cd ..
 
+# Copy binaries to staging directory
+cp ./openwrt/staging_dir/target-mips_34kc_musl-1.1.15/root-ar71xx/usr/bin/lbard servald/
+cp ./openwrt/staging_dir/target-mips_34kc_musl-1.1.15/root-ar71xx/usr/bin/flash900 servald/
+cp ./openwrt/staging_dir/target-mips_34kc_musl-1.1.15/root-ar71xx/usr/bin/servald servald/
